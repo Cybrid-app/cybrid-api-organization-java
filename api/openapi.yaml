@@ -1,0 +1,295 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: support@cybrid.app
+    name: Cybrid Support
+  description: |
+    # Welcome
+
+    Welcome to the Cybrid platform; enabling turnkey crypto banking services!
+
+    In these documents, you will find information on the operations provided by our platform, as well as details on how our REST API operates more generally.
+
+    Our complete set of APIs allows you to manage all your resources: your Organization, your banks and your identities. The complete set of APIs can be found on the following pages:
+
+    | API                                                            | Description                  |
+    |----------------------------------------------------------------|------------------------------|
+    | [Organization API](https://organization.demo.cybrid.app/api/schema/swagger-ui) | APIs to manage organizations |
+    | [Bank API](https://bank.demo.cybrid.app/api/schema/swagger-ui)                 | APIs to manage banks         |
+    | [Identities API](https://id.demo.cybrid.app/api/schema/swagger-ui)                     | APIs to manage identities    |
+
+    When you're ready, [request access](https://www.cybrid.xyz/access) to your Dashboard to view and administer your Organization. Once you've logged in, you can begin creating Banks, either for sandbox or production usage, and start enabling your customers to leverage DeFi and web3 with confidence.
+
+    If you have any questions, please contact [Support](mailto:support@cybrid.app) at any time so that we can help.
+
+    ## Authentication
+
+    The Cybrid Platform uses OAuth 2.0 Bearer Tokens to authenticate requests to the platform. Credentials to create Organization and Bank tokens can be generated via your Dashboard ([request access](https://www.cybrid.xyz/access)).
+
+    An Organization Token applies broadly to the whole Organization and all of its Banks, whereas, a Bank Token is specific to an individual Bank.
+
+    Both Organization and Bank tokens can be created using the OAuth Client Credential Grant flow. Each Organization and Bank has its own unique Client ID and Secret that allows for machine-to-machine authentication.
+
+    **Never share your Client ID or Secret publicly or in your source code repository**
+
+    Your Client ID and Secret can be exchanged for a time-limited Bearer Token by interacting with the Cybrid Identity Provider or through interacting with the **Authorize** button in this document:
+
+    ```
+    curl -X POST https://id.demo.cybrid.app/oauth/token -d '{
+        "grant_type": "client_credentials",
+        "client_id": "<Your Client ID>",
+        "client_secret": "<Your Secret>",
+        "scope": "<Your requested scopes -- space separated>"
+      }' -H "Content-Type: application/json"
+    ```
+
+    ## Scopes
+
+    The Cybrid platform supports the use of scopes to control the level of access a token is limited to. Scopes do not grant access to resources; instead, they provide limits, in support of the least privilege principal.
+
+    The following scopes are available on the platform and can be requested when generating either an Organization or a Bank token. Generally speaking, the _Read_ scope is required to read and list resources, the _Write_ scope is required to update a resource and the _Execute_ scope is required to create a resource.
+
+    | Resource      | Read scope         | Write scope          | Execute scope     | Token Type         |
+    |---------------|--------------------|----------------------|-------------------|--------------------|
+    | Organizations | organizations:read | organizations:write  |                   | Organization/ Bank |
+    | Banks         | banks:read         | banks:write          | banks:execute     | Organization/ Bank |
+    | Customers     | customers:read     | customers:write      | customers:execute | Bank               |
+    | Assets        | prices:read        |                      |                   | Bank               |
+    | Accounts      | accounts:read      |                      | accounts:execute  | Bank               |
+    | Prices        | prices:read        |                      |                   | Bank               |
+    | Symbols       | prices:read        |                      |                   | Bank               |
+    | Quotes        | quotes:read        |                      | quotes:execute    | Bank               |
+    | Trades        | trades:read        |                      | trades:execute    | Bank               |
+
+    ## Organizations
+
+    An Organization is meant to model the organization partnering with Cybrid to use our platform.
+
+    An Organization does not directly interact with customers. Instead, an Organization has one or more banks, which encompass the financial service offerings of the platform.
+
+    ## Banks
+
+    A Bank is owned by an Organization and can be thought of as an environment or container for Customers and product offerings. An example of a Bank would be your customer facing banking website, or an internal staging environment for testing and integration.
+
+    An Organization can have multiple banks, in sandbox or production environments. A sandbox Bank will be backed by stubbed data and process flows. For instance, identity record and funding source processes will be simulated rather than performed.
+
+    ## Customers
+
+    Customers represent your banking users on the platform. At present, we offer support for Individuals as Customers.
+
+    Customers must be verified in our system before they can play any part on the platform. See the Identity Records section for more details on how a customer can be verified.
+
+    Customers must also have an account to be able to transact. See the Accounts APIs for more details on setting up accounts for the customer.
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://www.cybrid.xyz/tos
+  title: Cybrid Organization API
+  version: v0.3.10
+servers:
+- url: https://organization.demo.cybrid.app
+  variables:
+    defaultHost:
+      default: https://organization.demo.cybrid.app
+paths:
+  /api/organizations/{organization_guid}:
+    get:
+      description: |-
+        Retrieve an organization.
+
+        Required scope: **organizations:read**
+      operationId: getOrganization
+      parameters:
+      - description: Identifier for the organization.
+        explode: false
+        in: path
+        name: organization_guid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+          description: organization found
+        "404":
+          content:
+            application/json:
+              example:
+                status: 404
+                error_message: organization not found
+                message_code: not_found
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: organization not found
+        "401":
+          content:
+            application/json:
+              example:
+                status: 401
+                error_message: Invalid Subject type
+                message_code: invalid_scopes
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid subject
+        "403":
+          content:
+            application/json:
+              example:
+                status: 403
+                error_message: Invalid scopes. Required organizations:read
+                message_code: invalid_scopes
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid scope
+      security:
+      - BearerAuth: []
+        oauth2:
+        - organizations:read
+      summary: Get organization
+      tags:
+      - Organizations
+      x-accepts: application/json
+    patch:
+      description: |-
+        Update an organization.
+
+        Required scope: **organizations:write**
+      operationId: updateOrganization
+      parameters:
+      - description: Identifier for the organization.
+        explode: false
+        in: path
+        name: organization_guid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchOrganization'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+          description: organization found
+        "404":
+          content:
+            application/json:
+              example:
+                status: 404
+                error_message: organization not found
+                message_code: not_found
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: organization not found
+        "400":
+          content:
+            application/json:
+              example:
+                status: 400
+                error_message: name must be at the most 128 characters long
+                message_code: invalid_parameter
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: invalid organization name length
+        "401":
+          content:
+            application/json:
+              example:
+                status: 401
+                error_message: Invalid Subject type
+                message_code: invalid_scopes
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid subject
+        "403":
+          content:
+            application/json:
+              example:
+                status: 403
+                error_message: Invalid scopes. Required organizations:write
+                message_code: invalid_scopes
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid scope
+      security:
+      - BearerAuth: []
+        oauth2:
+        - organizations:write
+      summary: Patch organization
+      tags:
+      - Organizations
+      x-contentType: application/json
+      x-accepts: application/json
+components:
+  schemas:
+    Organization:
+      example:
+        name: name
+        guid: guid
+        created_at: 2000-01-23T04:56:07.000+00:00
+      properties:
+        guid:
+          description: Auto-generated unique identifier for the organization.
+          type: string
+        name:
+          description: Name provided for the organization.
+          maxLength: 128
+          type: string
+        created_at:
+          description: ISO8601 datetime the organization was created at.
+          format: date-time
+          type: string
+      required:
+      - created_at
+      - guid
+      - name
+      type: object
+    PatchOrganization:
+      properties:
+        name:
+          description: Name for the organization.
+          maxLength: 128
+          type: string
+      required:
+      - name
+      type: object
+    ErrorResponse:
+      properties:
+        status:
+          description: Status code for Http Request
+          type: integer
+        error_message:
+          description: Error message
+          type: string
+        message_code:
+          description: Message code for Error
+          type: string
+      required:
+      - error_message
+      - message_code
+      - status
+      type: object
+  securitySchemes:
+    oauth2:
+      flows:
+        clientCredentials:
+          scopes:
+            organizations:write: organizations write
+            organizations:read: organizations read
+          tokenUrl: https://id.demo.cybrid.app/oauth/token
+      type: oauth2
+    BearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+
