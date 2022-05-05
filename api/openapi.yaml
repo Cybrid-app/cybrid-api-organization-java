@@ -85,7 +85,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://www.cybrid.xyz/tos
   title: Cybrid Organization API
-  version: v0.4.2
+  version: v0.5.0
 servers:
 - url: https://organization.demo.cybrid.app
   variables:
@@ -130,8 +130,8 @@ paths:
             application/json:
               example:
                 status: 401
-                error_message: Invalid Subject type
-                message_code: invalid_scopes
+                error_message: 'Invalid Subject type. Required: organization'
+                message_code: invalid_subject
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Invalid subject
@@ -206,8 +206,8 @@ paths:
             application/json:
               example:
                 status: 401
-                error_message: Invalid Subject type
-                message_code: invalid_scopes
+                error_message: 'Invalid Subject type. Required: organization'
+                message_code: invalid_subject
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Invalid subject
