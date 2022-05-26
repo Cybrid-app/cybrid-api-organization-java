@@ -85,7 +85,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://www.cybrid.xyz/tos
   title: Cybrid Organization API
-  version: v0.14.20
+  version: v0.15.0
 servers:
 - url: https://organization.demo.cybrid.app
   variables:
@@ -151,8 +151,8 @@ paths:
           content:
             application/json:
               example:
-                status: 403
-                error_message: Invalid scopes. Required organizations:read
+              - status: 403
+                error_message: 'Invalid scopes. Required: organizations:read'
                 message_code: invalid_scopes
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
@@ -253,8 +253,8 @@ paths:
           content:
             application/json:
               example:
-                status: 403
-                error_message: Invalid scopes. Required organizations:write
+              - status: 403
+                error_message: 'Invalid scopes. Required: organizations:write'
                 message_code: invalid_scopes
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
