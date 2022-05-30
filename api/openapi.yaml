@@ -85,7 +85,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://www.cybrid.xyz/tos
   title: Cybrid Organization API
-  version: v0.15.10
+  version: v0.16.0
 servers:
 - url: https://organization.demo.cybrid.app
   variables:
@@ -146,7 +146,7 @@ paths:
                 message_code: authentication_failed
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-          description: Invalid responses - invalid subject, Authentication failed
+          description: Unauthorized - Authentication failed, invalid subject
         "403":
           content:
             application/json:
@@ -166,7 +166,7 @@ paths:
                 message_code: authentication_malformed
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-          description: Malformed Authentication Header
+          description: Invalid requests - Malformed Authentication Header
       security:
       - BearerAuth: []
         oauth2:
@@ -225,7 +225,7 @@ paths:
                 message_code: authentication_malformed
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-          description: Invalid responses - malformed authentication header, invalid
+          description: Invalid requests - malformed authentication header, invalid
             organization name length
         "401":
           content:
@@ -248,7 +248,7 @@ paths:
                 message_code: authentication_failed
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-          description: Invalid responses - invalid subject, authentication failed
+          description: Unauthorized - Authentication failed, invalid subject
         "403":
           content:
             application/json:
