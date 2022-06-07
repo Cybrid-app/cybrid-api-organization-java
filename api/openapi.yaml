@@ -85,7 +85,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://www.cybrid.xyz/tos
   title: Cybrid Organization API
-  version: v0.20.4
+  version: v0.21.0
 servers:
 - url: https://organization.demo.cybrid.app
   variables:
@@ -115,16 +115,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/Organization'
           description: organization found
-        "404":
+        "400":
           content:
             application/json:
               example:
-                status: 404
-                error_message: organization not found
-                message_code: not_found
+                status: 400
+                error_message: Authorization header is malformed.
+                message_code: authentication_malformed
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-          description: organization not found
+          description: Invalid requests - Malformed Authentication Header
         "401":
           content:
             application/json:
@@ -157,16 +157,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Invalid scope
-        "400":
-          content:
-            application/json:
-              example:
-                status: 400
-                error_message: Authorization header is malformed.
-                message_code: authentication_malformed
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: Invalid requests - Malformed Authentication Header
       security:
       - BearerAuth: []
         oauth2:
@@ -203,23 +193,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Organization'
           description: organization found
-        "404":
-          content:
-            application/json:
-              example:
-                status: 404
-                error_message: organization not found
-                message_code: not_found
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: organization not found
         "400":
           content:
             application/json:
               example:
               - status: 400
                 error_message: name must be at the most 128 characters long
-                message_code: invalid_parameter
+                message_code: invalid_value
               - status: 400
                 error_message: Authorization header is malformed.
                 message_code: authentication_malformed
