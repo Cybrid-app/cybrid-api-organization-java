@@ -27,7 +27,7 @@ import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.Flux;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-06-14T18:31:44.106796Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-04-10T16:27:31.056497Z[Etc/UTC]")
 public class OrganizationsOrganizationApi {
     private ApiClient apiClient;
 
@@ -52,8 +52,8 @@ public class OrganizationsOrganizationApi {
      * Get organization
      * Retrieve an organization.  Required scope: **organizations:read**
      * <p><b>200</b> - organization found
-     * <p><b>400</b> - Invalid requests - Malformed Authentication Header
-     * <p><b>401</b> - Unauthorized - Authentication failed, invalid subject
+     * <p><b>400</b> - invalid organization
+     * <p><b>401</b> - Invalid requests - Malformed Authentication Header
      * <p><b>403</b> - Invalid scope
      * @param organizationGuid Identifier for the organization.
      * @return OrganizationOrganizationModel
@@ -92,8 +92,8 @@ public class OrganizationsOrganizationApi {
      * Get organization
      * Retrieve an organization.  Required scope: **organizations:read**
      * <p><b>200</b> - organization found
-     * <p><b>400</b> - Invalid requests - Malformed Authentication Header
-     * <p><b>401</b> - Unauthorized - Authentication failed, invalid subject
+     * <p><b>400</b> - invalid organization
+     * <p><b>401</b> - Invalid requests - Malformed Authentication Header
      * <p><b>403</b> - Invalid scope
      * @param organizationGuid Identifier for the organization.
      * @return OrganizationOrganizationModel
@@ -112,7 +112,7 @@ public class OrganizationsOrganizationApi {
      * Patch organization
      * Update an organization.  Required scope: **organizations:write**
      * <p><b>200</b> - organization found
-     * <p><b>400</b> - Invalid requests - malformed authentication header, invalid organization name length
+     * <p><b>400</b> - Invalid requests - invalid organization name length
      * <p><b>401</b> - Unauthorized - Authentication failed, invalid subject
      * <p><b>403</b> - Invalid scope
      * @param organizationGuid Identifier for the organization.
@@ -159,7 +159,7 @@ public class OrganizationsOrganizationApi {
      * Patch organization
      * Update an organization.  Required scope: **organizations:write**
      * <p><b>200</b> - organization found
-     * <p><b>400</b> - Invalid requests - malformed authentication header, invalid organization name length
+     * <p><b>400</b> - Invalid requests - invalid organization name length
      * <p><b>401</b> - Unauthorized - Authentication failed, invalid subject
      * <p><b>403</b> - Invalid scope
      * @param organizationGuid Identifier for the organization.

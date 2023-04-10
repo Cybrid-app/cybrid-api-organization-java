@@ -69,7 +69,7 @@ import app.cybrid.cybrid_api_organization.client.auth.HttpBearerAuth;
 import app.cybrid.cybrid_api_organization.client.auth.ApiKeyAuth;
 import app.cybrid.cybrid_api_organization.client.auth.OAuth;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-06-14T18:31:44.106796Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-04-10T16:27:31.056497Z[Etc/UTC]")
 public class ApiClient extends JavaTimeFormatter {
     public enum CollectionFormat {
         CSV(","), TSV("\t"), SSV(" "), PIPES("|"), MULTI(null);
@@ -89,7 +89,7 @@ public class ApiClient extends JavaTimeFormatter {
     private HttpHeaders defaultHeaders = new HttpHeaders();
     private MultiValueMap<String, String> defaultCookies = new LinkedMultiValueMap<String, String>();
 
-    private String basePath = "https://organization.demo.cybrid.app";
+    private String basePath = "https://organization.sandbox.cybrid.app";
 
     private final WebClient webClient;
     private final DateFormat dateFormat;

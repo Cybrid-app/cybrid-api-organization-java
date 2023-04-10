@@ -1,11 +1,11 @@
 # OrganizationsOrganizationApi
 
-All URIs are relative to *https://organization.demo.cybrid.app*
+All URIs are relative to *https://organization.sandbox.cybrid.app*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**getOrganization**](OrganizationsOrganizationApi.md#getOrganization) | **GET** /api/organizations/{organization_guid} | Get organization
-[**updateOrganization**](OrganizationsOrganizationApi.md#updateOrganization) | **PATCH** /api/organizations/{organization_guid} | Patch organization
+| Method | HTTP request | Description |
+|------------- | ------------- | -------------|
+| [**getOrganization**](OrganizationsOrganizationApi.md#getOrganization) | **GET** /api/organizations/{organization_guid} | Get organization |
+| [**updateOrganization**](OrganizationsOrganizationApi.md#updateOrganization) | **PATCH** /api/organizations/{organization_guid} | Patch organization |
 
 
 
@@ -31,7 +31,7 @@ import app.cybrid.cybrid_api_organization.client.api.OrganizationsOrganizationAp
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://organization.demo.cybrid.app");
+        defaultClient.setBasePath("https://organization.sandbox.cybrid.app");
         
         // Configure HTTP bearer authorization: BearerAuth
         HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -60,9 +60,9 @@ public class Example {
 ### Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **organizationGuid** | **String**| Identifier for the organization. |
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **organizationGuid** | **String**| Identifier for the organization. | |
 
 ### Return type
 
@@ -82,8 +82,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | organization found |  -  |
-| **400** | Invalid requests - Malformed Authentication Header |  -  |
-| **401** | Unauthorized - Authentication failed, invalid subject |  -  |
+| **400** | invalid organization |  -  |
+| **401** | Invalid requests - Malformed Authentication Header |  -  |
 | **403** | Invalid scope |  -  |
 
 
@@ -109,7 +109,7 @@ import app.cybrid.cybrid_api_organization.client.api.OrganizationsOrganizationAp
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://organization.demo.cybrid.app");
+        defaultClient.setBasePath("https://organization.sandbox.cybrid.app");
         
         // Configure HTTP bearer authorization: BearerAuth
         HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -139,10 +139,10 @@ public class Example {
 ### Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **organizationGuid** | **String**| Identifier for the organization. |
- **patchOrganizationOrganizationModel** | [**PatchOrganizationOrganizationModel**](PatchOrganizationOrganizationModel.md)|  |
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **organizationGuid** | **String**| Identifier for the organization. | |
+| **patchOrganizationOrganizationModel** | [**PatchOrganizationOrganizationModel**](PatchOrganizationOrganizationModel.md)|  | |
 
 ### Return type
 
@@ -162,7 +162,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | organization found |  -  |
-| **400** | Invalid requests - malformed authentication header, invalid organization name length |  -  |
+| **400** | Invalid requests - invalid organization name length |  -  |
 | **401** | Unauthorized - Authentication failed, invalid subject |  -  |
 | **403** | Invalid scope |  -  |
 
