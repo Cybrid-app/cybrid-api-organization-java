@@ -74,12 +74,13 @@ info:
     banks:read banks:write accounts:read accounts:execute customers:read customers:write\
     \ customers:execute prices:read quotes:execute quotes:read trades:execute trades:read\
     \ transfers:execute transfers:read rewards:execute rewards:read external_bank_accounts:read\
-    \ external_bank_accounts:write external_bank_accounts:execute workflows:read workflows:execute\
-    \ deposit_addresses:read deposit_addresses:execute\"\n  }' -H \"Content-Type:\
-    \ application/json\"\n\n# When using Organization credentials set `scope` to 'organizations:read\
-    \ organizations:write banks:read banks:write banks:execute customers:read accounts:read\
-    \ prices:read quotes:execute quotes:read trades:execute trades:read transfers:read\
-    \ transfers:execute external_bank_accounts:read workflows:read deposit_addresses:read'\n\
+    \ external_bank_accounts:write external_bank_accounts:execute external_wallets:read\
+    \ external_wallets:execute workflows:read workflows:execute deposit_addresses:read\
+    \ deposit_addresses:execute\"\n  }' -H \"Content-Type: application/json\"\n\n\
+    # When using Organization credentials set `scope` to 'organizations:read organizations:write\
+    \ banks:read banks:write banks:execute customers:read accounts:read prices:read\
+    \ quotes:execute quotes:read trades:execute trades:read transfers:read transfers:execute\
+    \ external_bank_accounts:read external_wallets:read workflows:read deposit_addresses:read'\n\
     ```\n<font color=\"orange\">**⚠️ Note: The above curl will create a bearer token\
     \ with full scope access. Delete scopes if you'd like to restrict access.**</font>\n\
     \n## Authentication Scopes\n\nThe Cybrid platform supports the use of scopes to\
@@ -103,25 +104,27 @@ info:
     \ Customer)      | deposit_addresses:write (Bank, Customer)      | deposit_addresses:execute\
     \ (Bank, Customer)       |\n| External Bank Account | external_bank_accounts:read\
     \ (Organization, Bank, Customer) | external_bank_accounts:write (Bank, Customer)\
-    \ | external_bank_accounts:execute (Bank, Customer)  |\n| Organization       \
-    \   | organizations:read (Organization)                          | organizations:write\
-    \ (Organization)            |                                                \
-    \  |\n| Price                 | prices:read (Bank, Customer)                 \
-    \              |                                               |             \
-    \                                     |\n| Quote                 | quotes:read\
-    \ (Organization, Bank, Customer)                 |                           \
-    \                    | quotes:execute (Organization, Bank, Customer)    |\n| Reward\
-    \                | rewards:read (Bank, Customer)                             \
-    \ |                                               | rewards:execute (Bank)   \
-    \                        |\n| Trade                 | trades:read (Organization,\
-    \ Bank, Customer)                 |                                          \
-    \     | trades:execute (Organization, Bank, Customer)    |\n| Transfer       \
-    \       | transfers:read (Organization, Bank, Customer)              |       \
-    \                                        | transfers:execute (Organization, Bank,\
-    \ Customer) |\n| Workflow              | workflows:read (Organization, Bank, Customer)\
-    \              |                                               | workflows:execute\
-    \ (Bank, Customer)               |\n\n## Available Endpoints\n\nThe available\
-    \ APIs for the [Identity](https://id.sandbox.cybrid.app/api/schema/swagger-ui),\
+    \ | external_bank_accounts:execute (Bank, Customer)  |\n| External Wallet    \
+    \   | external_wallet:read (Organization, Bank, Customer)        |           \
+    \                                    | external_wallet:execute (Bank, Customer)\
+    \         |\n| Organization          | organizations:read (Organization)     \
+    \                     | organizations:write (Organization)            |      \
+    \                                            |\n| Price                 | prices:read\
+    \ (Bank, Customer)                               |                           \
+    \                    |                                                  |\n| Quote\
+    \                 | quotes:read (Organization, Bank, Customer)               \
+    \  |                                               | quotes:execute (Organization,\
+    \ Bank, Customer)    |\n| Reward                | rewards:read (Bank, Customer)\
+    \                              |                                             \
+    \  | rewards:execute (Bank)                           |\n| Trade             \
+    \    | trades:read (Organization, Bank, Customer)                 |          \
+    \                                     | trades:execute (Organization, Bank, Customer)\
+    \    |\n| Transfer              | transfers:read (Organization, Bank, Customer)\
+    \              |                                               | transfers:execute\
+    \ (Organization, Bank, Customer) |\n| Workflow              | workflows:read (Organization,\
+    \ Bank, Customer)              |                                             \
+    \  | workflows:execute (Bank, Customer)               |\n\n## Available Endpoints\n\
+    \nThe available APIs for the [Identity](https://id.sandbox.cybrid.app/api/schema/swagger-ui),\
     \ [Organization](https://organization.sandbox.cybrid.app/api/schema/swagger-ui)\
     \ and [Bank](https://bank.sandbox.cybrid.app/api/schema/swagger-ui) API services\
     \ are listed below:\n\n| API Service  | Model                | API Endpoint Path\
@@ -151,9 +154,11 @@ info:
     \                                                            |\n| Bank       \
     \  | ExternalBankAccount  | /api/external_bank_accounts    | Create, get and list\
     \ external bank accounts, which connect customer bank accounts to the platform\
-    \ |\n| Bank         | IdentityVerification | /api/identity_verifications    |\
-    \ Create and list identity verifications, which are performed on customers for\
-    \ KYC                  |\n| Bank         | Price                | /api/prices\
+    \ |\n| Bank         | ExternalWallet       | /api/external_wallets          |\
+    \ Create, get, list and delete external wallets, which connect customer wallets\
+    \ to the platform     |\n| Bank         | IdentityVerification | /api/identity_verifications\
+    \    | Create and list identity verifications, which are performed on customers\
+    \ for KYC                  |\n| Bank         | Price                | /api/prices\
     \                    | Get the current prices for assets on the platform     \
     \                                            |\n| Bank         | Quote       \
     \         | /api/quotes                    | Create and list quotes, which are\
@@ -196,7 +201,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://www.cybrid.xyz/tos
   title: Cybrid Organization API
-  version: v0.68.91
+  version: v0.69.0
 servers:
 - url: https://organization.sandbox.cybrid.app
   variables:
