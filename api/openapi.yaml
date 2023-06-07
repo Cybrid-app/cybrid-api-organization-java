@@ -145,9 +145,7 @@ info:
     \ list of assets supported by the platform (ex: BTC, ETH)                    \
     \                 |\n| Bank         | Bank                 | /api/banks      \
     \               | Create, update and list banks, the parent to customers, accounts,\
-    \ etc                             |\n| Bank         | BankVerificationKey  | /api/bank_verification_keys\
-    \    | Create, list and retrive verification keys, used for signing identities\
-    \                           |\n| Bank         | Customer             | /api/customers\
+    \ etc                             |\n| Bank         | Customer             | /api/customers\
     \                 | Create and list customers                                \
     \                                         |\n| Bank         | DepositAddress \
     \      | /api/deposit_addresses         | Create, get and list deposit addresses\
@@ -201,7 +199,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://www.cybrid.xyz/tos
   title: Cybrid Organization API
-  version: v0.72.1
+  version: v0.73.0
 servers:
 - url: https://organization.sandbox.cybrid.app
   variables:

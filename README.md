@@ -2,9 +2,9 @@
 
 Cybrid Organization API
 
-- API version: v0.72.1
+- API version: v0.73.0
 
-- Build date: 2023-06-07T15:23:41.716397Z[Etc/UTC]
+- Build date: 2023-06-07T16:22:39.308639Z[Etc/UTC]
 
 # Cybrid API documentation
 
@@ -115,7 +115,6 @@ The available APIs for the [Identity](https://id.sandbox.cybrid.app/api/schema/s
 | Bank         | Account              | /api/accounts                  | Create and list accounts, which hold a specific asset for a customers                             |
 | Bank         | Asset                | /api/assets                    | Get a list of assets supported by the platform (ex: BTC, ETH)                                     |
 | Bank         | Bank                 | /api/banks                     | Create, update and list banks, the parent to customers, accounts, etc                             |
-| Bank         | BankVerificationKey  | /api/bank_verification_keys    | Create, list and retrive verification keys, used for signing identities                           |
 | Bank         | Customer             | /api/customers                 | Create and list customers                                                                         |
 | Bank         | DepositAddress       | /api/deposit_addresses         | Create, get and list deposit addresses                                                            |
 | Bank         | ExternalBankAccount  | /api/external_bank_accounts    | Create, get and list external bank accounts, which connect customer bank accounts to the platform |
@@ -186,7 +185,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>app.cybrid</groupId>
   <artifactId>cybrid-api-organization-java</artifactId>
-  <version>v0.72.1</version>
+  <version>v0.73.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -202,7 +201,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "app.cybrid:cybrid-api-organization-java:v0.72.1"
+     implementation "app.cybrid:cybrid-api-organization-java:v0.73.0"
   }
 ```
 
@@ -216,7 +215,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/cybrid-api-organization-java-v0.72.1.jar`
+- `target/cybrid-api-organization-java-v0.73.0.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
