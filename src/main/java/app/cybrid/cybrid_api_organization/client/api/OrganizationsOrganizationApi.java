@@ -27,7 +27,7 @@ import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.Flux;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-06-28T18:36:56.468261Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-06-29T17:37:33.884674Z[Etc/UTC]")
 public class OrganizationsOrganizationApi {
     private ApiClient apiClient;
 
