@@ -118,18 +118,15 @@ info:
     \               |                                               |            \
     \                                      |\n| Quote                 | quotes:read\
     \ (Organization, Bank, Customer)                 |                           \
-    \                    | quotes:execute (Organization, Bank, Customer)    |\n| Reward\
-    \                | rewards:read (Bank, Customer)                             \
-    \ |                                               | rewards:execute (Bank)   \
-    \                        |\n| Trade                 | trades:read (Organization,\
-    \ Bank, Customer)                 |                                          \
-    \     | trades:execute (Organization, Bank, Customer)    |\n| Transfer       \
-    \       | transfers:read (Organization, Bank, Customer)              |       \
-    \                                        | transfers:execute (Organization, Bank,\
-    \ Customer) |\n| Workflow              | workflows:read (Organization, Bank, Customer)\
-    \              |                                               | workflows:execute\
-    \ (Bank, Customer)               |\n\n## Available Endpoints\n\nThe available\
-    \ APIs for the [Identity](https://id.sandbox.cybrid.app/api/schema/swagger-ui),\
+    \                    | quotes:execute (Organization, Bank, Customer)    |\n| Trade\
+    \                 | trades:read (Organization, Bank, Customer)               \
+    \  |                                               | trades:execute (Organization,\
+    \ Bank, Customer)    |\n| Transfer              | transfers:read (Organization,\
+    \ Bank, Customer)              |                                             \
+    \  | transfers:execute (Organization, Bank, Customer) |\n| Workflow          \
+    \    | workflows:read (Organization, Bank, Customer)              |          \
+    \                                     | workflows:execute (Bank, Customer)   \
+    \            |\n\n## Available Endpoints\n\nThe available APIs for the [Identity](https://id.sandbox.cybrid.app/api/schema/swagger-ui),\
     \ [Organization](https://organization.sandbox.cybrid.app/api/schema/swagger-ui)\
     \ and [Bank](https://bank.sandbox.cybrid.app/api/schema/swagger-ui) API services\
     \ are listed below:\n\n| API Service  | Model                | API Endpoint Path\
@@ -168,45 +165,42 @@ info:
     \                                            |\n| Bank         | Quote       \
     \         | /api/quotes                    | Create and list quotes, which are\
     \ required to execute trades                                      |\n| Bank  \
-    \       | Reward               | /api/rewards                   | Create a new\
-    \ reward (automates quote/trade for simplicity)                              \
-    \          |\n| Bank         | Symbol               | /api/symbols           \
-    \        | Get a list of symbols supported for trade (ex: BTC-USD)           \
-    \                                |\n| Bank         | Trade                | /api/trades\
-    \                    | Create and list trades, which buy or sell cryptocurrency\
-    \                                          |\n| Bank         | Transfer      \
-    \       | /api/transfers                 | Create, get and list transfers (e.g.,\
-    \ funding, book)                                              |\n| Bank      \
-    \   | Workflow             | /api/workflows                 | Create, get and\
-    \ list workflows                                                             \
-    \       |\n\n## Understanding Object Models & Endpoints\n\n**Organizations**\n\
-    \nAn `Organization` is meant to represent the organization partnering with Cybrid\
-    \ to use our platform.\n\nAn `Organization` typically does not directly interact\
-    \ with `customers`. Instead, an Organization has one or more `banks`, which encompass\
-    \ the financial service offerings of the platform.\n\n**Banks**\n\nA `Bank` is\
-    \ owned by an `Organization` and can be thought of as an environment or container\
-    \ for `customers` and product offerings. Banks are created in either `Sandbox`\
-    \ or `Production` mode, where `Sandbox` is the environment that you would test,\
-    \ prototype and build in prior to moving to `Production`.\n\nAn `Organization`\
-    \ can have multiple `banks`, in either `Sandbox` or `Production` environments.\
-    \ A `Sandbox Bank` will be backed by stubbed data and process flows. For instance,\
-    \ funding source transfer processes as well as trades will be simulated rather\
-    \ than performed, however asset prices are representative of real-world values.\
-    \ You have an unlimited amount of simulated fiat currency for testing purposes.\n\
-    \n**Customers**\n\n`Customers` represent your banking users on the platform. At\
-    \ present, we offer support for `Individuals` as Customers.\n\n`Customers` must\
-    \ be verified (i.e., KYC'd) in our system before they can play any part on the\
-    \ platform, which means they must have an associated and a passing `Identity Verification`.\
-    \ See the Identity Verifications section for more details on how a customer can\
-    \ be verified.\n\n`Customers` must also have an `Account` to be able to transact,\
-    \ in the desired asset class. See the Accounts APIs for more details on setting\
-    \ up accounts for the customer.\n"
+    \       | Symbol               | /api/symbols                   | Get a list of\
+    \ symbols supported for trade (ex: BTC-USD)                                  \
+    \         |\n| Bank         | Trade                | /api/trades             \
+    \       | Create and list trades, which buy or sell cryptocurrency           \
+    \                               |\n| Bank         | Transfer             | /api/transfers\
+    \                 | Create, get and list transfers (e.g., funding, book)     \
+    \                                         |\n| Bank         | Workflow       \
+    \      | /api/workflows                 | Create, get and list workflows     \
+    \                                                               |\n\n## Understanding\
+    \ Object Models & Endpoints\n\n**Organizations**\n\nAn `Organization` is meant\
+    \ to represent the organization partnering with Cybrid to use our platform.\n\n\
+    An `Organization` typically does not directly interact with `customers`. Instead,\
+    \ an Organization has one or more `banks`, which encompass the financial service\
+    \ offerings of the platform.\n\n**Banks**\n\nA `Bank` is owned by an `Organization`\
+    \ and can be thought of as an environment or container for `customers` and product\
+    \ offerings. Banks are created in either `Sandbox` or `Production` mode, where\
+    \ `Sandbox` is the environment that you would test, prototype and build in prior\
+    \ to moving to `Production`.\n\nAn `Organization` can have multiple `banks`, in\
+    \ either `Sandbox` or `Production` environments. A `Sandbox Bank` will be backed\
+    \ by stubbed data and process flows. For instance, funding source transfer processes\
+    \ as well as trades will be simulated rather than performed, however asset prices\
+    \ are representative of real-world values. You have an unlimited amount of simulated\
+    \ fiat currency for testing purposes.\n\n**Customers**\n\n`Customers` represent\
+    \ your banking users on the platform. At present, we offer support for `Individuals`\
+    \ as Customers.\n\n`Customers` must be verified (i.e., KYC'd) in our system before\
+    \ they can play any part on the platform, which means they must have an associated\
+    \ and a passing `Identity Verification`. See the Identity Verifications section\
+    \ for more details on how a customer can be verified.\n\n`Customers` must also\
+    \ have an `Account` to be able to transact, in the desired asset class. See the\
+    \ Accounts APIs for more details on setting up accounts for the customer.\n"
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://www.cybrid.xyz/tos
   title: Cybrid Organization API
-  version: v0.92.5
+  version: v0.93.0
 servers:
 - url: https://organization.sandbox.cybrid.app
   variables:

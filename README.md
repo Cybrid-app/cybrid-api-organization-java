@@ -2,9 +2,9 @@
 
 Cybrid Organization API
 
-- API version: v0.92.5
+- API version: v0.93.0
 
-- Build date: 2023-09-11T12:01:34.458726Z[Etc/UTC]
+- Build date: 2023-09-11T19:47:33.863853Z[Etc/UTC]
 
 # Cybrid API documentation
 
@@ -98,7 +98,6 @@ The following scopes are available on the platform and can be requested when gen
 | User                  |                                                            |                                               | users:execute (Organization)                     |
 | Price                 | prices:read (Bank, Customer)                               |                                               |                                                  |
 | Quote                 | quotes:read (Organization, Bank, Customer)                 |                                               | quotes:execute (Organization, Bank, Customer)    |
-| Reward                | rewards:read (Bank, Customer)                              |                                               | rewards:execute (Bank)                           |
 | Trade                 | trades:read (Organization, Bank, Customer)                 |                                               | trades:execute (Organization, Bank, Customer)    |
 | Transfer              | transfers:read (Organization, Bank, Customer)              |                                               | transfers:execute (Organization, Bank, Customer) |
 | Workflow              | workflows:read (Organization, Bank, Customer)              |                                               | workflows:execute (Bank, Customer)               |
@@ -124,7 +123,6 @@ The available APIs for the [Identity](https://id.sandbox.cybrid.app/api/schema/s
 | Bank         | IdentityVerification | /api/identity_verifications    | Create and list identity verifications, which are performed on customers for KYC                  |
 | Bank         | Price                | /api/prices                    | Get the current prices for assets on the platform                                                 |
 | Bank         | Quote                | /api/quotes                    | Create and list quotes, which are required to execute trades                                      |
-| Bank         | Reward               | /api/rewards                   | Create a new reward (automates quote/trade for simplicity)                                        |
 | Bank         | Symbol               | /api/symbols                   | Get a list of symbols supported for trade (ex: BTC-USD)                                           |
 | Bank         | Trade                | /api/trades                    | Create and list trades, which buy or sell cryptocurrency                                          |
 | Bank         | Transfer             | /api/transfers                 | Create, get and list transfers (e.g., funding, book)                                              |
@@ -187,7 +185,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>app.cybrid</groupId>
   <artifactId>cybrid-api-organization-java</artifactId>
-  <version>v0.92.5</version>
+  <version>v0.93.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -203,7 +201,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "app.cybrid:cybrid-api-organization-java:v0.92.5"
+     implementation "app.cybrid:cybrid-api-organization-java:v0.93.0"
   }
 ```
 
@@ -217,7 +215,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/cybrid-api-organization-java-v0.92.5.jar`
+- `target/cybrid-api-organization-java-v0.93.0.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
