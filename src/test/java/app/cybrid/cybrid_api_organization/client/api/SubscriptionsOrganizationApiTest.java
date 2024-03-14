@@ -11,73 +11,82 @@
  */
 
 
-package app.cybrid.cybrid_api_organization.client;
+package app.cybrid.cybrid_api_organization.client.api;
 
-import java.util.Collection;
-import java.util.Iterator;
+import app.cybrid.cybrid_api_organization.client.model.ErrorResponseOrganizationModel;
+import app.cybrid.cybrid_api_organization.client.model.PostSubscriptionOrganizationModel;
+import app.cybrid.cybrid_api_organization.client.model.SubscriptionListOrganizationModel;
+import app.cybrid.cybrid_api_organization.client.model.SubscriptionOrganizationModel;
+import org.junit.Test;
+import org.junit.Ignore;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-14T13:38:24.963467Z[Etc/UTC]")
-public class StringUtil {
-  /**
-   * Check if the given array contains the given value (with case-insensitive comparison).
-   *
-   * @param array The array
-   * @param value The value to search
-   * @return true if the array contains the value
-   */
-  public static boolean containsIgnoreCase(String[] array, String value) {
-    for (String str : array) {
-      if (value == null && str == null) {
-        return true;
-      }
-      if (value != null && value.equalsIgnoreCase(str)) {
-        return true;
-      }
-    }
-    return false;
-  }
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-  /**
-   * Join an array of strings with the given separator.
-   * <p>
-   * Note: This might be replaced by utility method from commons-lang or guava someday
-   * if one of those libraries is added as dependency.
-   * </p>
-   *
-   * @param array     The array of strings
-   * @param separator The separator
-   * @return the resulting string
-   */
-  public static String join(String[] array, String separator) {
-    int len = array.length;
-    if (len == 0) {
-      return "";
-    }
+/**
+ * API tests for SubscriptionsOrganizationApi
+ */
+@Ignore
+public class SubscriptionsOrganizationApiTest {
 
-    StringBuilder out = new StringBuilder();
-    out.append(array[0]);
-    for (int i = 1; i < len; i++) {
-      out.append(separator).append(array[i]);
-    }
-    return out.toString();
-  }
+    private final SubscriptionsOrganizationApi api = new SubscriptionsOrganizationApi();
 
-  /**
-   * Join a list of strings with the given separator.
-   *
-   * @param list      The list of strings
-   * @param separator The separator
-   * @return the resulting string
-   */
-  public static String join(Collection<String> list, String separator) {
-    Iterator<String> iterator = list.iterator();
-    StringBuilder out = new StringBuilder();
-    if (iterator.hasNext()) {
-      out.append(iterator.next());
+    
+    /**
+     * Create Subscription
+     *
+     * Creates a Subscription.  ## Subscription creation  Subscriptions can be created for webhook endpoints.  ## State  | State | Description | |-------|-------------| | storing | The Platform is storing the subscription details in our private store | | completed | The Platform has created the subscription | | failed | The Platform was not able to successfully create the subscription | | deleting | The Platform is deleting the subscription | | deleted | The Platform has deleted the subscription|    Required scope: **subscriptions:execute
+     */
+    @Test
+    public void createSubscriptionTest()  {
+        PostSubscriptionOrganizationModel postSubscriptionOrganizationModel = null;
+        SubscriptionOrganizationModel response = api.createSubscription(postSubscriptionOrganizationModel).block();
+
+        // TODO: test validations
     }
-    while (iterator.hasNext()) {
-      out.append(separator).append(iterator.next());
+    
+    /**
+     * Delete Subscription
+     *
+     * Deletes a subscription.  Required scope: **subscriptions:execute**
+     */
+    @Test
+    public void deleteSubscriptionTest()  {
+        String subscriptionGuid = null;
+        SubscriptionOrganizationModel response = api.deleteSubscription(subscriptionGuid).block();
+
+        // TODO: test validations
     }
-    return out.toString();
-  }
+    
+    /**
+     * Get Subscription 
+     *
+     * Retrieves a subscription.  Required scope: **subscriptions:read**
+     */
+    @Test
+    public void getSubscriptionTest()  {
+        String subscriptionGuid = null;
+        SubscriptionOrganizationModel response = api.getSubscription(subscriptionGuid).block();
+
+        // TODO: test validations
+    }
+    
+    /**
+     * Get subscriptions list
+     *
+     * Retrieves a listing of subscriptions.  Required scope: **subscriptions:read**
+     */
+    @Test
+    public void listSubscriptionsTest()  {
+        java.math.BigInteger page = null;
+        java.math.BigInteger perPage = null;
+        String guid = null;
+        SubscriptionListOrganizationModel response = api.listSubscriptions(page, perPage, guid).block();
+
+        // TODO: test validations
+    }
+    
 }

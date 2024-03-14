@@ -11,73 +11,208 @@
  */
 
 
-package app.cybrid.cybrid_api_organization.client;
+package app.cybrid.cybrid_api_organization.client.model;
 
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.Objects;
+import java.util.Arrays;
+import app.cybrid.cybrid_api_organization.client.model.SubscriptionOrganizationModel;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+/**
+ * SubscriptionListOrganizationModel
+ */
+@JsonPropertyOrder({
+  SubscriptionListOrganizationModel.JSON_PROPERTY_TOTAL,
+  SubscriptionListOrganizationModel.JSON_PROPERTY_PAGE,
+  SubscriptionListOrganizationModel.JSON_PROPERTY_PER_PAGE,
+  SubscriptionListOrganizationModel.JSON_PROPERTY_OBJECTS
+})
+@JsonTypeName("SubscriptionList")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-14T13:38:24.963467Z[Etc/UTC]")
-public class StringUtil {
-  /**
-   * Check if the given array contains the given value (with case-insensitive comparison).
-   *
-   * @param array The array
-   * @param value The value to search
-   * @return true if the array contains the value
-   */
-  public static boolean containsIgnoreCase(String[] array, String value) {
-    for (String str : array) {
-      if (value == null && str == null) {
-        return true;
-      }
-      if (value != null && value.equalsIgnoreCase(str)) {
-        return true;
-      }
+public class SubscriptionListOrganizationModel {
+  public static final String JSON_PROPERTY_TOTAL = "total";
+  private java.math.BigInteger total;
+
+  public static final String JSON_PROPERTY_PAGE = "page";
+  private java.math.BigInteger page;
+
+  public static final String JSON_PROPERTY_PER_PAGE = "per_page";
+  private java.math.BigInteger perPage;
+
+  public static final String JSON_PROPERTY_OBJECTS = "objects";
+  private List<SubscriptionOrganizationModel> objects = new ArrayList<>();
+
+  public SubscriptionListOrganizationModel() { 
+  }
+
+  public SubscriptionListOrganizationModel total(java.math.BigInteger total) {
+    
+    this.total = total;
+    return this;
+  }
+
+   /**
+   * The total number of records available.
+   * minimum: 0
+   * @return total
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "The total number of records available.")
+  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public java.math.BigInteger getTotal() {
+    return total;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTotal(java.math.BigInteger total) {
+    this.total = total;
+  }
+
+
+  public SubscriptionListOrganizationModel page(java.math.BigInteger page) {
+    
+    this.page = page;
+    return this;
+  }
+
+   /**
+   * The page index to retrieve.
+   * minimum: 0
+   * @return page
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "The page index to retrieve.")
+  @JsonProperty(JSON_PROPERTY_PAGE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public java.math.BigInteger getPage() {
+    return page;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PAGE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setPage(java.math.BigInteger page) {
+    this.page = page;
+  }
+
+
+  public SubscriptionListOrganizationModel perPage(java.math.BigInteger perPage) {
+    
+    this.perPage = perPage;
+    return this;
+  }
+
+   /**
+   * The number of entities per page to return.
+   * minimum: 0
+   * @return perPage
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "The number of entities per page to return.")
+  @JsonProperty(JSON_PROPERTY_PER_PAGE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public java.math.BigInteger getPerPage() {
+    return perPage;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PER_PAGE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setPerPage(java.math.BigInteger perPage) {
+    this.perPage = perPage;
+  }
+
+
+  public SubscriptionListOrganizationModel objects(List<SubscriptionOrganizationModel> objects) {
+    
+    this.objects = objects;
+    return this;
+  }
+
+  public SubscriptionListOrganizationModel addObjectsItem(SubscriptionOrganizationModel objectsItem) {
+    this.objects.add(objectsItem);
+    return this;
+  }
+
+   /**
+   * Get objects
+   * @return objects
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_OBJECTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<SubscriptionOrganizationModel> getObjects() {
+    return objects;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OBJECTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setObjects(List<SubscriptionOrganizationModel> objects) {
+    this.objects = objects;
+  }
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-    return false;
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SubscriptionListOrganizationModel subscriptionList = (SubscriptionListOrganizationModel) o;
+    return Objects.equals(this.total, subscriptionList.total) &&
+        Objects.equals(this.page, subscriptionList.page) &&
+        Objects.equals(this.perPage, subscriptionList.perPage) &&
+        Objects.equals(this.objects, subscriptionList.objects);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(total, page, perPage, objects);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SubscriptionListOrganizationModel {\n");
+    sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("    page: ").append(toIndentedString(page)).append("\n");
+    sb.append("    perPage: ").append(toIndentedString(perPage)).append("\n");
+    sb.append("    objects: ").append(toIndentedString(objects)).append("\n");
+    sb.append("}");
+    return sb.toString();
   }
 
   /**
-   * Join an array of strings with the given separator.
-   * <p>
-   * Note: This might be replaced by utility method from commons-lang or guava someday
-   * if one of those libraries is added as dependency.
-   * </p>
-   *
-   * @param array     The array of strings
-   * @param separator The separator
-   * @return the resulting string
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
-  public static String join(String[] array, String separator) {
-    int len = array.length;
-    if (len == 0) {
-      return "";
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
     }
-
-    StringBuilder out = new StringBuilder();
-    out.append(array[0]);
-    for (int i = 1; i < len; i++) {
-      out.append(separator).append(array[i]);
-    }
-    return out.toString();
+    return o.toString().replace("\n", "\n    ");
   }
 
-  /**
-   * Join a list of strings with the given separator.
-   *
-   * @param list      The list of strings
-   * @param separator The separator
-   * @return the resulting string
-   */
-  public static String join(Collection<String> list, String separator) {
-    Iterator<String> iterator = list.iterator();
-    StringBuilder out = new StringBuilder();
-    if (iterator.hasNext()) {
-      out.append(iterator.next());
-    }
-    while (iterator.hasNext()) {
-      out.append(separator).append(iterator.next());
-    }
-    return out.toString();
-  }
 }
+

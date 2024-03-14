@@ -11,73 +11,396 @@
  */
 
 
-package app.cybrid.cybrid_api_organization.client;
+package app.cybrid.cybrid_api_organization.client.model;
 
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.time.OffsetDateTime;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+/**
+ * SubscriptionOrganizationModel
+ */
+@JsonPropertyOrder({
+  SubscriptionOrganizationModel.JSON_PROPERTY_GUID,
+  SubscriptionOrganizationModel.JSON_PROPERTY_NAME,
+  SubscriptionOrganizationModel.JSON_PROPERTY_TYPE,
+  SubscriptionOrganizationModel.JSON_PROPERTY_URL,
+  SubscriptionOrganizationModel.JSON_PROPERTY_ENVIRONMENT,
+  SubscriptionOrganizationModel.JSON_PROPERTY_STATE,
+  SubscriptionOrganizationModel.JSON_PROPERTY_FAILURE_CODE,
+  SubscriptionOrganizationModel.JSON_PROPERTY_CREATED_AT,
+  SubscriptionOrganizationModel.JSON_PROPERTY_UPDATED_AT
+})
+@JsonTypeName("Subscription")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-14T13:38:24.963467Z[Etc/UTC]")
-public class StringUtil {
+public class SubscriptionOrganizationModel {
+  public static final String JSON_PROPERTY_GUID = "guid";
+  private String guid;
+
+  public static final String JSON_PROPERTY_NAME = "name";
+  private String name;
+
   /**
-   * Check if the given array contains the given value (with case-insensitive comparison).
-   *
-   * @param array The array
-   * @param value The value to search
-   * @return true if the array contains the value
+   * The type of subscription.
    */
-  public static boolean containsIgnoreCase(String[] array, String value) {
-    for (String str : array) {
-      if (value == null && str == null) {
-        return true;
+  public enum TypeEnum {
+    WEBHOOK("webhook");
+
+    private String value;
+
+    TypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TypeEnum fromValue(String value) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
       }
-      if (value != null && value.equalsIgnoreCase(str)) {
-        return true;
-      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
-    return false;
+  }
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  private TypeEnum type;
+
+  public static final String JSON_PROPERTY_URL = "url";
+  private String url;
+
+  public static final String JSON_PROPERTY_ENVIRONMENT = "environment";
+  private String environment;
+
+  public static final String JSON_PROPERTY_STATE = "state";
+  private String state;
+
+  public static final String JSON_PROPERTY_FAILURE_CODE = "failure_code";
+  private String failureCode;
+
+  public static final String JSON_PROPERTY_CREATED_AT = "created_at";
+  private OffsetDateTime createdAt;
+
+  public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
+  private OffsetDateTime updatedAt;
+
+  public SubscriptionOrganizationModel() { 
+  }
+
+  public SubscriptionOrganizationModel guid(String guid) {
+    
+    this.guid = guid;
+    return this;
+  }
+
+   /**
+   * Auto-generated unique identifier for the subscription.
+   * @return guid
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "Auto-generated unique identifier for the subscription.")
+  @JsonProperty(JSON_PROPERTY_GUID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getGuid() {
+    return guid;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GUID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setGuid(String guid) {
+    this.guid = guid;
+  }
+
+
+  public SubscriptionOrganizationModel name(String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * Name provided for the subscription.
+   * @return name
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "Name provided for the subscription.")
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(String name) {
+    this.name = name;
+  }
+
+
+  public SubscriptionOrganizationModel type(TypeEnum type) {
+    
+    this.type = type;
+    return this;
+  }
+
+   /**
+   * The type of subscription.
+   * @return type
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "The type of subscription.")
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TypeEnum getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(TypeEnum type) {
+    this.type = type;
+  }
+
+
+  public SubscriptionOrganizationModel url(String url) {
+    
+    this.url = url;
+    return this;
+  }
+
+   /**
+   * The url for the subscription.
+   * @return url
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "The url for the subscription.")
+  @JsonProperty(JSON_PROPERTY_URL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getUrl() {
+    return url;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_URL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setUrl(String url) {
+    this.url = url;
+  }
+
+
+  public SubscriptionOrganizationModel environment(String environment) {
+    
+    this.environment = environment;
+    return this;
+  }
+
+   /**
+   * The environment that the subscription is configured for; one of sandbox or production.
+   * @return environment
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "The environment that the subscription is configured for; one of sandbox or production.")
+  @JsonProperty(JSON_PROPERTY_ENVIRONMENT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getEnvironment() {
+    return environment;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ENVIRONMENT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setEnvironment(String environment) {
+    this.environment = environment;
+  }
+
+
+  public SubscriptionOrganizationModel state(String state) {
+    
+    this.state = state;
+    return this;
+  }
+
+   /**
+   * The state of the subscription; one of storing, completed, failed, deleting, or deleted.
+   * @return state
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "The state of the subscription; one of storing, completed, failed, deleting, or deleted.")
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getState() {
+    return state;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setState(String state) {
+    this.state = state;
+  }
+
+
+  public SubscriptionOrganizationModel failureCode(String failureCode) {
+    
+    this.failureCode = failureCode;
+    return this;
+  }
+
+   /**
+   * The failure code of a subscription (if any)
+   * @return failureCode
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The failure code of a subscription (if any)")
+  @JsonProperty(JSON_PROPERTY_FAILURE_CODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFailureCode() {
+    return failureCode;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FAILURE_CODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFailureCode(String failureCode) {
+    this.failureCode = failureCode;
+  }
+
+
+  public SubscriptionOrganizationModel createdAt(OffsetDateTime createdAt) {
+    
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * ISO8601 datetime the record was created at.
+   * @return createdAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "ISO8601 datetime the record was created at.")
+  @JsonProperty(JSON_PROPERTY_CREATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CREATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCreatedAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+
+  public SubscriptionOrganizationModel updatedAt(OffsetDateTime updatedAt) {
+    
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * ISO8601 datetime the record was last updated at.
+   * @return updatedAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "ISO8601 datetime the record was last updated at.")
+  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUpdatedAt(OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SubscriptionOrganizationModel subscription = (SubscriptionOrganizationModel) o;
+    return Objects.equals(this.guid, subscription.guid) &&
+        Objects.equals(this.name, subscription.name) &&
+        Objects.equals(this.type, subscription.type) &&
+        Objects.equals(this.url, subscription.url) &&
+        Objects.equals(this.environment, subscription.environment) &&
+        Objects.equals(this.state, subscription.state) &&
+        Objects.equals(this.failureCode, subscription.failureCode) &&
+        Objects.equals(this.createdAt, subscription.createdAt) &&
+        Objects.equals(this.updatedAt, subscription.updatedAt);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(guid, name, type, url, environment, state, failureCode, createdAt, updatedAt);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SubscriptionOrganizationModel {\n");
+    sb.append("    guid: ").append(toIndentedString(guid)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    url: ").append(toIndentedString(url)).append("\n");
+    sb.append("    environment: ").append(toIndentedString(environment)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    failureCode: ").append(toIndentedString(failureCode)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("}");
+    return sb.toString();
   }
 
   /**
-   * Join an array of strings with the given separator.
-   * <p>
-   * Note: This might be replaced by utility method from commons-lang or guava someday
-   * if one of those libraries is added as dependency.
-   * </p>
-   *
-   * @param array     The array of strings
-   * @param separator The separator
-   * @return the resulting string
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
-  public static String join(String[] array, String separator) {
-    int len = array.length;
-    if (len == 0) {
-      return "";
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
     }
-
-    StringBuilder out = new StringBuilder();
-    out.append(array[0]);
-    for (int i = 1; i < len; i++) {
-      out.append(separator).append(array[i]);
-    }
-    return out.toString();
+    return o.toString().replace("\n", "\n    ");
   }
 
-  /**
-   * Join a list of strings with the given separator.
-   *
-   * @param list      The list of strings
-   * @param separator The separator
-   * @return the resulting string
-   */
-  public static String join(Collection<String> list, String separator) {
-    Iterator<String> iterator = list.iterator();
-    StringBuilder out = new StringBuilder();
-    if (iterator.hasNext()) {
-      out.append(iterator.next());
-    }
-    while (iterator.hasNext()) {
-      out.append(separator).append(iterator.next());
-    }
-    return out.toString();
-  }
 }
+

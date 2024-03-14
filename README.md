@@ -2,9 +2,9 @@
 
 Cybrid Organization API
 
-- API version: v0.115.11
+- API version: v0.115.13
 
-- Build date: 2024-03-13T16:25:16.237765Z[Etc/UTC]
+- Build date: 2024-03-14T13:38:24.963467Z[Etc/UTC]
 
 # Cybrid API documentation
 
@@ -76,7 +76,7 @@ curl -X POST https://id.sandbox.cybrid.app/oauth/token -d '{
     \"scope\": \"banks:read banks:write bank_applications:execute accounts:read accounts:execute customers:read customers:write customers:execute prices:read quotes:execute quotes:read trades:execute trades:read transfers:execute transfers:read external_bank_accounts:read external_bank_accounts:write external_bank_accounts:execute external_wallets:read external_wallets:execute workflows:read workflows:execute deposit_addresses:read deposit_addresses:execute deposit_bank_accounts:read deposit_bank_accounts:execute invoices:read invoices:write invoices:execute\"
   }' -H \"Content-Type: application/json\"
 
-# When using Organization credentials set `scope` to 'organizations:read organizations:write organization_applications:execute banks:read banks:write banks:execute bank_applications:execute users:read users:execute customers:read accounts:read prices:read quotes:execute quotes:read trades:execute trades:read transfers:read transfers:execute external_bank_accounts:read external_wallets:read workflows:read deposit_addresses:read deposit_bank_accounts:read invoices:read'
+# When using Organization credentials set `scope` to 'organizations:read organizations:write organization_applications:execute banks:read banks:write banks:execute bank_applications:execute users:read users:execute customers:read accounts:read prices:read quotes:execute quotes:read trades:execute trades:read transfers:read transfers:execute external_bank_accounts:read external_wallets:read workflows:read deposit_addresses:read deposit_bank_accounts:read invoices:read subscriptions:read subscriptions:write subscriptions:execute'
 ```
 <font color=\"orange\">**⚠️ Note: The above curl will create a bearer token with full scope access. Delete scopes if you'd like to restrict access.**</font>
 
@@ -188,7 +188,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>app.cybrid</groupId>
   <artifactId>cybrid-api-organization-java</artifactId>
-  <version>v0.115.11</version>
+  <version>v0.115.13</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -204,7 +204,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "app.cybrid:cybrid-api-organization-java:v0.115.11"
+     implementation "app.cybrid:cybrid-api-organization-java:v0.115.13"
   }
 ```
 
@@ -218,7 +218,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/cybrid-api-organization-java-v0.115.11.jar`
+- `target/cybrid-api-organization-java-v0.115.13.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -271,6 +271,10 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *OrganizationsOrganizationApi* | [**getOrganization**](docs/OrganizationsOrganizationApi.md#getOrganization) | **GET** /api/organizations/{organization_guid} | Get organization
 *OrganizationsOrganizationApi* | [**updateOrganization**](docs/OrganizationsOrganizationApi.md#updateOrganization) | **PATCH** /api/organizations/{organization_guid} | Patch organization
+*SubscriptionsOrganizationApi* | [**createSubscription**](docs/SubscriptionsOrganizationApi.md#createSubscription) | **POST** /api/subscriptions/ | Create Subscription
+*SubscriptionsOrganizationApi* | [**deleteSubscription**](docs/SubscriptionsOrganizationApi.md#deleteSubscription) | **DELETE** /api/subscriptions/{subscription_guid} | Delete Subscription
+*SubscriptionsOrganizationApi* | [**getSubscription**](docs/SubscriptionsOrganizationApi.md#getSubscription) | **GET** /api/subscriptions/{subscription_guid} | Get Subscription 
+*SubscriptionsOrganizationApi* | [**listSubscriptions**](docs/SubscriptionsOrganizationApi.md#listSubscriptions) | **GET** /api/subscriptions | Get subscriptions list
 
 
 ## Documentation for Models
@@ -278,6 +282,12 @@ Class | Method | HTTP request | Description
  - [ErrorResponseOrganizationModel](docs/ErrorResponseOrganizationModel.md)
  - [OrganizationOrganizationModel](docs/OrganizationOrganizationModel.md)
  - [PatchOrganizationOrganizationModel](docs/PatchOrganizationOrganizationModel.md)
+ - [PostSubscriptionOrganizationModel](docs/PostSubscriptionOrganizationModel.md)
+ - [SubscriptionEnvironmentOrganizationModel](docs/SubscriptionEnvironmentOrganizationModel.md)
+ - [SubscriptionListOrganizationModel](docs/SubscriptionListOrganizationModel.md)
+ - [SubscriptionOrganizationModel](docs/SubscriptionOrganizationModel.md)
+ - [SubscriptionStateOrganizationModel](docs/SubscriptionStateOrganizationModel.md)
+ - [SubscriptionTypeOrganizationModel](docs/SubscriptionTypeOrganizationModel.md)
 
 
 ## Documentation for Authorization
@@ -297,6 +307,8 @@ Authentication schemes defined for the API:
 - **Scopes**: 
   - organizations:write: organizations write
   - organizations:read: organizations read
+  - subscriptions:write: subscriptions write
+  - subscriptions:read: subscriptions read
 
 
 ## Recommendation

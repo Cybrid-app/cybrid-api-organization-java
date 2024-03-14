@@ -83,18 +83,19 @@ info:
     \ users:read users:execute customers:read accounts:read prices:read quotes:execute\
     \ quotes:read trades:execute trades:read transfers:read transfers:execute external_bank_accounts:read\
     \ external_wallets:read workflows:read deposit_addresses:read deposit_bank_accounts:read\
-    \ invoices:read'\n```\n<font color=\"orange\">**⚠️ Note: The above curl will create\
-    \ a bearer token with full scope access. Delete scopes if you'd like to restrict\
-    \ access.**</font>\n\n## Authentication Scopes\n\nThe Cybrid platform supports\
-    \ the use of scopes to control the level of access a token is limited to. Scopes\
-    \ do not grant access to resources; instead, they provide limits, in support of\
-    \ the least privilege principal.\n\nThe following scopes are available on the\
-    \ platform and can be requested when generating either an Organization, Bank or\
-    \ Customer token. Generally speaking, the _Read_ scope is required to read and\
-    \ list resources, the _Write_ scope is required to update a resource and the _Execute_\
-    \ scope is required to create a resource.\n\n| Resource              | Read scope\
-    \ (Token Type)                                    | Write scope (Token Type) \
-    \                     | Execute scope (Token Type)                       |\n|-----------------------|------------------------------------------------------------|-----------------------------------------------|--------------------------------------------------|\n\
+    \ invoices:read subscriptions:read subscriptions:write subscriptions:execute'\n\
+    ```\n<font color=\"orange\">**⚠️ Note: The above curl will create a bearer token\
+    \ with full scope access. Delete scopes if you'd like to restrict access.**</font>\n\
+    \n## Authentication Scopes\n\nThe Cybrid platform supports the use of scopes to\
+    \ control the level of access a token is limited to. Scopes do not grant access\
+    \ to resources; instead, they provide limits, in support of the least privilege\
+    \ principal.\n\nThe following scopes are available on the platform and can be\
+    \ requested when generating either an Organization, Bank or Customer token. Generally\
+    \ speaking, the _Read_ scope is required to read and list resources, the _Write_\
+    \ scope is required to update a resource and the _Execute_ scope is required to\
+    \ create a resource.\n\n| Resource              | Read scope (Token Type)    \
+    \                                | Write scope (Token Type)                  \
+    \    | Execute scope (Token Type)                       |\n|-----------------------|------------------------------------------------------------|-----------------------------------------------|--------------------------------------------------|\n\
     | Account               | accounts:read (Organization, Bank, Customer)       \
     \        |                                               | accounts:execute (Bank,\
     \ Customer)                |\n| Bank                  | banks:read (Organization,\
@@ -207,7 +208,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://www.cybrid.xyz/tos
   title: Cybrid Organization API
-  version: v0.115.11
+  version: v0.115.13
 servers:
 - description: Sandbox environment is simulated money movement
   url: https://organization.sandbox.cybrid.app
@@ -398,8 +399,390 @@ paths:
       - Organizations
       x-content-type: application/json
       x-accepts: application/json
+  /api/subscriptions/:
+    post:
+      description: "Creates a Subscription.\n\n## Subscription creation\n\nSubscriptions\
+        \ can be created for webhook endpoints.\n\n## State\n\n| State | Description\
+        \ |\n|-------|-------------|\n| storing | The Platform is storing the subscription\
+        \ details in our private store |\n| completed | The Platform has created the\
+        \ subscription |\n| failed | The Platform was not able to successfully create\
+        \ the subscription |\n| deleting | The Platform is deleting the subscription\
+        \ |\n| deleted | The Platform has deleted the subscription|\n\n\n\nRequired\
+        \ scope: **subscriptions:execute"
+      operationId: createSubscription
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostSubscription'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+          description: Subscription created
+        "401":
+          content:
+            application/json:
+              examples:
+                invalid_subject:
+                  value:
+                    status: 401
+                    error_message: "Invalid Subject type. Required: bank or customer"
+                    message_code: invalid_subject
+                invalid_signature:
+                  value:
+                    status: 401
+                    error_message: Signature verification raised
+                    message_code: authentication_failed
+                invalid_audience:
+                  value:
+                    status: 401
+                    error_message: Invalid audience
+                    message_code: authentication_failed
+                invalid_issuer:
+                  value:
+                    status: 401
+                    error_message: Invalid issuer
+                    message_code: authentication_failed
+                expired_signature:
+                  value:
+                    status: 401
+                    error_message: Signature has expired
+                    message_code: authentication_failed
+                malformed_auth_header:
+                  value:
+                    status: 401
+                    error_message: Authorization header is malformed.
+                    message_code: authentication_malformed
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: "Unauthorized - Authentication failed, "
+        "403":
+          content:
+            application/json:
+              examples:
+                invalid_scope:
+                  value:
+                    status: 403
+                    error_message: "Invalid scopes. Required: subscriptions:execute"
+                    message_code: invalid_scopes
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid scope
+      security:
+      - BearerAuth: []
+        oauth2:
+        - subscriptions:execute
+      summary: Create Subscription
+      tags:
+      - Subscriptions
+      x-content-type: application/json
+      x-accepts: application/json
+  /api/subscriptions/{subscription_guid}:
+    delete:
+      description: "Deletes a subscription.\n\nRequired scope: **subscriptions:execute**"
+      operationId: deleteSubscription
+      parameters:
+      - description: Identifier for the subscription.
+        explode: false
+        in: path
+        name: subscription_guid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+          description: Subscription deleted
+        "401":
+          content:
+            application/json:
+              examples:
+                invalid_subject:
+                  value:
+                    status: 401
+                    error_message: "Invalid Subject type. Required: customer or bank\
+                      \ or internal"
+                    message_code: invalid_subject
+                invalid_signature:
+                  value:
+                    status: 401
+                    error_message: Signature verification raised
+                    message_code: authentication_failed
+                invalid_audience:
+                  value:
+                    status: 401
+                    error_message: Invalid audience
+                    message_code: authentication_failed
+                invalid_issuer:
+                  value:
+                    status: 401
+                    error_message: Invalid issuer
+                    message_code: authentication_failed
+                expired_signature:
+                  value:
+                    status: 401
+                    error_message: Signature has expired
+                    message_code: authentication_failed
+                malformed_auth_header:
+                  value:
+                    status: 401
+                    error_message: Authorization header is malformed.
+                    message_code: authentication_malformed
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: "Unauthorized - Authentication failed, "
+        "403":
+          content:
+            application/json:
+              examples:
+                invalid_scope:
+                  value:
+                    status: 403
+                    error_message: "Invalid scopes. Required: subscriptions:execute"
+                    message_code: invalid_scopes
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid scope
+        "404":
+          content:
+            application/json:
+              examples:
+                not_found:
+                  value:
+                    status: 404
+                    error_message: Subscription not found
+                    message_code: not_found
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Subscription not found
+      security:
+      - BearerAuth: []
+        oauth2:
+        - subscriptions:execute
+      summary: Delete Subscription
+      tags:
+      - Subscriptions
+      x-accepts: application/json
+    get:
+      description: "Retrieves a subscription.\n\nRequired scope: **subscriptions:read**"
+      operationId: getSubscription
+      parameters:
+      - description: Identifier for the subscription.
+        explode: false
+        in: path
+        name: subscription_guid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+          description: Subscription found
+        "401":
+          content:
+            application/json:
+              examples:
+                invalid_subject:
+                  value:
+                    status: 401
+                    error_message: "Invalid Subject type. Required: customer or bank\
+                      \ or internal"
+                    message_code: invalid_subject
+                invalid_signature:
+                  value:
+                    status: 401
+                    error_message: Signature verification raised
+                    message_code: authentication_failed
+                invalid_audience:
+                  value:
+                    status: 401
+                    error_message: Invalid audience
+                    message_code: authentication_failed
+                invalid_issuer:
+                  value:
+                    status: 401
+                    error_message: Invalid issuer
+                    message_code: authentication_failed
+                expired_signature:
+                  value:
+                    status: 401
+                    error_message: Signature has expired
+                    message_code: authentication_failed
+                malformed_auth_header:
+                  value:
+                    status: 401
+                    error_message: Authorization header is malformed.
+                    message_code: authentication_malformed
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: "Unauthorized - Authentication failed, "
+        "403":
+          content:
+            application/json:
+              examples:
+                invalid_scope:
+                  value:
+                    status: 403
+                    error_message: "Invalid scopes. Required: subscriptions:read"
+                    message_code: invalid_scopes
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid scope
+        "404":
+          content:
+            application/json:
+              examples:
+                not_found:
+                  value:
+                    status: 404
+                    error_message: Subscription not found
+                    message_code: not_found
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Subscription not found
+      security:
+      - BearerAuth: []
+        oauth2:
+        - subscriptions:read
+      summary: 'Get Subscription '
+      tags:
+      - Subscriptions
+      x-accepts: application/json
+  /api/subscriptions:
+    get:
+      description: "Retrieves a listing of subscriptions.\n\nRequired scope: **subscriptions:read**"
+      operationId: listSubscriptions
+      parameters:
+      - description: The page index to retrieve.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          $ref: '#/components/schemas/ListRequestPage'
+        style: form
+      - description: The number of entities per page to return.
+        explode: true
+        in: query
+        name: per_page
+        required: false
+        schema:
+          $ref: '#/components/schemas/ListRequestPerPage'
+        style: form
+      - description: Comma separated subscription_guids to list subscriptions for.
+        explode: true
+        in: query
+        name: guid
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionList'
+          description: Get list of subscriptions
+        "400":
+          content:
+            application/json:
+              examples:
+                invalid_value:
+                  value:
+                    status: 400
+                    error_message: Invalid value. comma separated guids must be at
+                      the most 4096 characters long
+                    message_code: invalid_value
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid requests
+        "401":
+          content:
+            application/json:
+              examples:
+                invalid_subject:
+                  value:
+                    status: 401
+                    error_message: "Invalid Subject type. Required: customer or bank\
+                      \ or internal"
+                    message_code: invalid_subject
+                invalid_signature:
+                  value:
+                    status: 401
+                    error_message: Signature verification raised
+                    message_code: authentication_failed
+                invalid_audience:
+                  value:
+                    status: 401
+                    error_message: Invalid audience
+                    message_code: authentication_failed
+                invalid_issuer:
+                  value:
+                    status: 401
+                    error_message: Invalid issuer
+                    message_code: authentication_failed
+                expired_signature:
+                  value:
+                    status: 401
+                    error_message: Signature has expired
+                    message_code: authentication_failed
+                malformed_auth_header:
+                  value:
+                    status: 401
+                    error_message: Authorization header is malformed.
+                    message_code: authentication_malformed
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: "Unauthorized - Authentication failed, "
+        "403":
+          content:
+            application/json:
+              examples:
+                invalid_scope:
+                  value:
+                    status: 403
+                    error_message: "Invalid scopes. Required: subscriptions:read"
+                    message_code: invalid_scopes
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid scope
+      security:
+      - BearerAuth: []
+        oauth2:
+        - subscriptions:read
+      summary: Get subscriptions list
+      tags:
+      - Subscriptions
+      x-accepts: application/json
 components:
   schemas:
+    ListRequestCursor:
+      description: The cursor used to retrieve the page.
+      nullable: true
+      type: string
+    ListRequestPage:
+      description: The page index to retrieve.
+      minimum: 0
+      type: integer
+    ListRequestPerPage:
+      description: The number of entities per page to return.
+      maximum: 100
+      minimum: 1
+      type: integer
     Organization:
       example:
         updated_at: 2000-01-23T04:56:07.000+00:00
@@ -436,6 +819,157 @@ components:
       required:
       - name
       type: object
+    Subscription:
+      example:
+        environment: environment
+        failure_code: failure_code
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        name: name
+        guid: guid
+        created_at: 2000-01-23T04:56:07.000+00:00
+        state: state
+        type: webhook
+        url: url
+      properties:
+        guid:
+          description: Auto-generated unique identifier for the subscription.
+          maxLength: 32
+          minLength: 32
+          type: string
+        name:
+          description: Name provided for the subscription.
+          maxLength: 128
+          minLength: 1
+          type: string
+        type:
+          description: The type of subscription.
+          enum:
+          - webhook
+          type: string
+        url:
+          description: The url for the subscription.
+          maxLength: 128
+          minLength: 1
+          type: string
+        environment:
+          description: The environment that the subscription is configured for; one
+            of sandbox or production.
+          type: string
+        state:
+          description: "The state of the subscription; one of storing, completed,\
+            \ failed, deleting, or deleted."
+          type: string
+        failure_code:
+          description: The failure code of a subscription (if any)
+          nullable: true
+          type: string
+        created_at:
+          description: ISO8601 datetime the record was created at.
+          format: date-time
+          type: string
+        updated_at:
+          description: ISO8601 datetime the record was last updated at.
+          format: date-time
+          type: string
+      required:
+      - environment
+      - guid
+      - name
+      - state
+      - type
+      - url
+      type: object
+    SubscriptionType:
+      enum:
+      - webhook
+      type: string
+    SubscriptionState:
+      enum:
+      - storing
+      - completed
+      - failed
+      - deleting
+      - deleted
+      type: string
+    SubscriptionEnvironment:
+      enum:
+      - sandbox
+      - production
+      type: string
+    PostSubscription:
+      properties:
+        name:
+          description: Name provided for the subscription.
+          maxLength: 128
+          minLength: 1
+          type: string
+        type:
+          description: The type of subscription.
+          enum:
+          - webhook
+          type: string
+        url:
+          description: The url for the subscription.
+          maxLength: 128
+          minLength: 1
+          type: string
+        environment:
+          description: The environment that the subscription is configured for; one
+            of sandbox or production.
+          type: string
+      required:
+      - environment
+      - name
+      - type
+      - url
+      type: object
+    SubscriptionList:
+      example:
+        per_page: 0
+        total: 0
+        objects:
+        - environment: environment
+          failure_code: failure_code
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          name: name
+          guid: guid
+          created_at: 2000-01-23T04:56:07.000+00:00
+          state: state
+          type: webhook
+          url: url
+        - environment: environment
+          failure_code: failure_code
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          name: name
+          guid: guid
+          created_at: 2000-01-23T04:56:07.000+00:00
+          state: state
+          type: webhook
+          url: url
+        page: 0
+      properties:
+        total:
+          description: The total number of records available.
+          minimum: 0
+          type: integer
+        page:
+          description: The page index to retrieve.
+          minimum: 0
+          type: integer
+        per_page:
+          description: The number of entities per page to return.
+          minimum: 0
+          type: integer
+        objects:
+          items:
+            $ref: '#/components/schemas/Subscription'
+          type: array
+      required:
+      - objects
+      - page
+      - per_page
+      - total
+      type: object
     ErrorResponse:
       properties:
         status:
@@ -459,6 +993,8 @@ components:
           scopes:
             organizations:write: organizations write
             organizations:read: organizations read
+            subscriptions:write: subscriptions write
+            subscriptions:read: subscriptions read
           tokenUrl: https://id.sandbox.cybrid.app/oauth/token
       type: oauth2
     BearerAuth:
