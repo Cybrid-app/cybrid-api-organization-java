@@ -11,9 +11,5 @@
 
 * `FAILED` (value: `"failed"`)
 
-* `DELETING` (value: `"deleting"`)
-
-* `DELETED` (value: `"deleted"`)
-
 
 

@@ -215,7 +215,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://www.cybrid.xyz/tos
   title: Cybrid Organization API
-  version: v0.118.80
+  version: v0.118.85
 servers:
 - description: Sandbox environment is simulated money movement
   url: https://organization.sandbox.cybrid.app
@@ -503,11 +503,7 @@ paths:
           type: string
         style: simple
       responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Subscription'
+        "204":
           description: Subscription deleted
         "401":
           content:
@@ -864,7 +860,7 @@ components:
           type: string
         state:
           description: "The state of the subscription; one of storing, completed,\
-            \ failed, deleting, or deleted."
+            \ or failed."
           type: string
         failure_code:
           description: The failure code of a subscription (if any)
@@ -895,8 +891,6 @@ components:
       - storing
       - completed
       - failed
-      - deleting
-      - deleted
       type: string
     SubscriptionEnvironment:
       enum:
@@ -1002,6 +996,7 @@ components:
             organizations:read: organizations read
             subscriptions:write: subscriptions write
             subscriptions:read: subscriptions read
+            subscriptions:execute: subscriptions execute
           tokenUrl: https://id.production.cybrid.app/oauth/token
       type: oauth2
     BearerAuth:

@@ -28,7 +28,7 @@ import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.Flux;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-16T13:52:19.866954Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-18T15:04:46.477063Z[Etc/UTC]")
 public class SubscriptionsOrganizationApi {
     private ApiClient apiClient;
 
@@ -110,12 +110,11 @@ public class SubscriptionsOrganizationApi {
     /**
      * Delete Subscription
      * Deletes a subscription.  Required scope: **subscriptions:execute**
-     * <p><b>200</b> - Subscription deleted
+     * <p><b>204</b> - Subscription deleted
      * <p><b>401</b> - Unauthorized - Authentication failed, 
      * <p><b>403</b> - Invalid scope
      * <p><b>404</b> - Subscription not found
      * @param subscriptionGuid Identifier for the subscription.
-     * @return SubscriptionOrganizationModel
      * @throws WebClientResponseException if an error occurs while attempting to invoke the API
      */
     private ResponseSpec deleteSubscriptionRequestCreation(String subscriptionGuid) throws WebClientResponseException {
@@ -143,28 +142,27 @@ public class SubscriptionsOrganizationApi {
 
         String[] localVarAuthNames = new String[] { "BearerAuth", "oauth2" };
 
-        ParameterizedTypeReference<SubscriptionOrganizationModel> localVarReturnType = new ParameterizedTypeReference<SubscriptionOrganizationModel>() {};
+        ParameterizedTypeReference<Void> localVarReturnType = new ParameterizedTypeReference<Void>() {};
         return apiClient.invokeAPI("/api/subscriptions/{subscription_guid}", HttpMethod.DELETE, pathParams, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
     }
 
     /**
      * Delete Subscription
      * Deletes a subscription.  Required scope: **subscriptions:execute**
-     * <p><b>200</b> - Subscription deleted
+     * <p><b>204</b> - Subscription deleted
      * <p><b>401</b> - Unauthorized - Authentication failed, 
      * <p><b>403</b> - Invalid scope
      * <p><b>404</b> - Subscription not found
      * @param subscriptionGuid Identifier for the subscription.
-     * @return SubscriptionOrganizationModel
      * @throws WebClientResponseException if an error occurs while attempting to invoke the API
      */
-    public Mono<SubscriptionOrganizationModel> deleteSubscription(String subscriptionGuid) throws WebClientResponseException {
-        ParameterizedTypeReference<SubscriptionOrganizationModel> localVarReturnType = new ParameterizedTypeReference<SubscriptionOrganizationModel>() {};
+    public Mono<Void> deleteSubscription(String subscriptionGuid) throws WebClientResponseException {
+        ParameterizedTypeReference<Void> localVarReturnType = new ParameterizedTypeReference<Void>() {};
         return deleteSubscriptionRequestCreation(subscriptionGuid).bodyToMono(localVarReturnType);
     }
 
-    public Mono<ResponseEntity<SubscriptionOrganizationModel>> deleteSubscriptionWithHttpInfo(String subscriptionGuid) throws WebClientResponseException {
-        ParameterizedTypeReference<SubscriptionOrganizationModel> localVarReturnType = new ParameterizedTypeReference<SubscriptionOrganizationModel>() {};
+    public Mono<ResponseEntity<Void>> deleteSubscriptionWithHttpInfo(String subscriptionGuid) throws WebClientResponseException {
+        ParameterizedTypeReference<Void> localVarReturnType = new ParameterizedTypeReference<Void>() {};
         return deleteSubscriptionRequestCreation(subscriptionGuid).toEntity(localVarReturnType);
     }
     /**

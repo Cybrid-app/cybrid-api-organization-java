@@ -90,7 +90,7 @@ public class Example {
 
 ## deleteSubscription
 
-> SubscriptionOrganizationModel deleteSubscription(subscriptionGuid)
+> deleteSubscription(subscriptionGuid)
 
 Delete Subscription
 
@@ -123,8 +123,7 @@ public class Example {
         SubscriptionsOrganizationApi apiInstance = new SubscriptionsOrganizationApi(defaultClient);
         String subscriptionGuid = "subscriptionGuid_example"; // String | Identifier for the subscription.
         try {
-            SubscriptionOrganizationModel result = apiInstance.deleteSubscription(subscriptionGuid);
-            System.out.println(result);
+            apiInstance.deleteSubscription(subscriptionGuid);
         } catch (ApiException e) {
             System.err.println("Exception when calling SubscriptionsOrganizationApi#deleteSubscription");
             System.err.println("Status code: " + e.getCode());
@@ -145,7 +144,7 @@ public class Example {
 
 ### Return type
 
-[**SubscriptionOrganizationModel**](SubscriptionOrganizationModel.md)
+null (empty response body)
 
 ### Authorization
 
@@ -160,7 +159,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Subscription deleted |  -  |
+| **204** | Subscription deleted |  -  |
 | **401** | Unauthorized - Authentication failed,  |  -  |
 | **403** | Invalid scope |  -  |
 | **404** | Subscription not found |  -  |
