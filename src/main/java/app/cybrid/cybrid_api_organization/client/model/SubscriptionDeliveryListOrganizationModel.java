@@ -11,54 +11,208 @@
  */
 
 
-package app.cybrid.cybrid_api_organization.client.api;
+package app.cybrid.cybrid_api_organization.client.model;
 
-import app.cybrid.cybrid_api_organization.client.model.ErrorResponseOrganizationModel;
-import app.cybrid.cybrid_api_organization.client.model.OrganizationOrganizationModel;
-import app.cybrid.cybrid_api_organization.client.model.PatchOrganizationOrganizationModel;
-import org.junit.Test;
-import org.junit.Ignore;
-
+import java.util.Objects;
+import java.util.Arrays;
+import app.cybrid.cybrid_api_organization.client.model.SubscriptionDeliveryOrganizationModel;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * API tests for OrganizationsOrganizationApi
+ * SubscriptionDeliveryListOrganizationModel
  */
-@Ignore
-public class OrganizationsOrganizationApiTest {
+@JsonPropertyOrder({
+  SubscriptionDeliveryListOrganizationModel.JSON_PROPERTY_TOTAL,
+  SubscriptionDeliveryListOrganizationModel.JSON_PROPERTY_PAGE,
+  SubscriptionDeliveryListOrganizationModel.JSON_PROPERTY_PER_PAGE,
+  SubscriptionDeliveryListOrganizationModel.JSON_PROPERTY_OBJECTS
+})
+@JsonTypeName("SubscriptionDeliveryList")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-08-04T11:43:01.811735Z[Etc/UTC]")
+public class SubscriptionDeliveryListOrganizationModel {
+  public static final String JSON_PROPERTY_TOTAL = "total";
+  private java.math.BigInteger total;
 
-    private final OrganizationsOrganizationApi api = new OrganizationsOrganizationApi();
+  public static final String JSON_PROPERTY_PAGE = "page";
+  private java.math.BigInteger page;
 
+  public static final String JSON_PROPERTY_PER_PAGE = "per_page";
+  private java.math.BigInteger perPage;
+
+  public static final String JSON_PROPERTY_OBJECTS = "objects";
+  private List<SubscriptionDeliveryOrganizationModel> objects = new ArrayList<>();
+
+  public SubscriptionDeliveryListOrganizationModel() { 
+  }
+
+  public SubscriptionDeliveryListOrganizationModel total(java.math.BigInteger total) {
     
-    /**
-     * Get organization
-     *
-     * Retrieve an organization.  Required scope: **organizations:read**
-     */
-    @Test
-    public void getOrganizationTest()  {
-        String organizationGuid = null;
-        OrganizationOrganizationModel response = api.getOrganization(organizationGuid).block();
+    this.total = total;
+    return this;
+  }
 
-        // TODO: test validations
+   /**
+   * The total number of records available.
+   * minimum: 0
+   * @return total
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "The total number of records available.")
+  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public java.math.BigInteger getTotal() {
+    return total;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTotal(java.math.BigInteger total) {
+    this.total = total;
+  }
+
+
+  public SubscriptionDeliveryListOrganizationModel page(java.math.BigInteger page) {
+    
+    this.page = page;
+    return this;
+  }
+
+   /**
+   * The page index to retrieve.
+   * minimum: 0
+   * @return page
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "The page index to retrieve.")
+  @JsonProperty(JSON_PROPERTY_PAGE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public java.math.BigInteger getPage() {
+    return page;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PAGE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setPage(java.math.BigInteger page) {
+    this.page = page;
+  }
+
+
+  public SubscriptionDeliveryListOrganizationModel perPage(java.math.BigInteger perPage) {
+    
+    this.perPage = perPage;
+    return this;
+  }
+
+   /**
+   * The number of entities per page to return.
+   * minimum: 0
+   * @return perPage
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "The number of entities per page to return.")
+  @JsonProperty(JSON_PROPERTY_PER_PAGE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public java.math.BigInteger getPerPage() {
+    return perPage;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PER_PAGE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setPerPage(java.math.BigInteger perPage) {
+    this.perPage = perPage;
+  }
+
+
+  public SubscriptionDeliveryListOrganizationModel objects(List<SubscriptionDeliveryOrganizationModel> objects) {
+    
+    this.objects = objects;
+    return this;
+  }
+
+  public SubscriptionDeliveryListOrganizationModel addObjectsItem(SubscriptionDeliveryOrganizationModel objectsItem) {
+    this.objects.add(objectsItem);
+    return this;
+  }
+
+   /**
+   * Get objects
+   * @return objects
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_OBJECTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<SubscriptionDeliveryOrganizationModel> getObjects() {
+    return objects;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OBJECTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setObjects(List<SubscriptionDeliveryOrganizationModel> objects) {
+    this.objects = objects;
+  }
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-    
-    /**
-     * Patch organization
-     *
-     * Update an organization.  Required scope: **organizations:write**
-     */
-    @Test
-    public void updateOrganizationTest()  {
-        String organizationGuid = null;
-        PatchOrganizationOrganizationModel patchOrganizationOrganizationModel = null;
-        OrganizationOrganizationModel response = api.updateOrganization(organizationGuid, patchOrganizationOrganizationModel).block();
-
-        // TODO: test validations
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
-    
+    SubscriptionDeliveryListOrganizationModel subscriptionDeliveryList = (SubscriptionDeliveryListOrganizationModel) o;
+    return Objects.equals(this.total, subscriptionDeliveryList.total) &&
+        Objects.equals(this.page, subscriptionDeliveryList.page) &&
+        Objects.equals(this.perPage, subscriptionDeliveryList.perPage) &&
+        Objects.equals(this.objects, subscriptionDeliveryList.objects);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(total, page, perPage, objects);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SubscriptionDeliveryListOrganizationModel {\n");
+    sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("    page: ").append(toIndentedString(page)).append("\n");
+    sb.append("    perPage: ").append(toIndentedString(perPage)).append("\n");
+    sb.append("    objects: ").append(toIndentedString(objects)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
 }
+

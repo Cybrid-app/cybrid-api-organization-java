@@ -11,54 +11,121 @@
  */
 
 
-package app.cybrid.cybrid_api_organization.client.api;
+package app.cybrid.cybrid_api_organization.client.model;
 
-import app.cybrid.cybrid_api_organization.client.model.ErrorResponseOrganizationModel;
-import app.cybrid.cybrid_api_organization.client.model.OrganizationOrganizationModel;
-import app.cybrid.cybrid_api_organization.client.model.PatchOrganizationOrganizationModel;
-import org.junit.Test;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.time.OffsetDateTime;
+import org.junit.Assert;
 import org.junit.Ignore;
+import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
- * API tests for OrganizationsOrganizationApi
+ * Model tests for SubscriptionDeliveryOrganizationModel
  */
-@Ignore
-public class OrganizationsOrganizationApiTest {
+public class SubscriptionDeliveryOrganizationModelTest {
+    private final SubscriptionDeliveryOrganizationModel model = new SubscriptionDeliveryOrganizationModel();
 
-    private final OrganizationsOrganizationApi api = new OrganizationsOrganizationApi();
-
-    
     /**
-     * Get organization
-     *
-     * Retrieve an organization.  Required scope: **organizations:read**
+     * Model tests for SubscriptionDeliveryOrganizationModel
      */
     @Test
-    public void getOrganizationTest()  {
-        String organizationGuid = null;
-        OrganizationOrganizationModel response = api.getOrganization(organizationGuid).block();
-
-        // TODO: test validations
+    public void testSubscriptionDeliveryOrganizationModel() {
+        // TODO: test SubscriptionDeliveryOrganizationModel
     }
-    
+
     /**
-     * Patch organization
-     *
-     * Update an organization.  Required scope: **organizations:write**
+     * Test the property 'guid'
      */
     @Test
-    public void updateOrganizationTest()  {
-        String organizationGuid = null;
-        PatchOrganizationOrganizationModel patchOrganizationOrganizationModel = null;
-        OrganizationOrganizationModel response = api.updateOrganization(organizationGuid, patchOrganizationOrganizationModel).block();
-
-        // TODO: test validations
+    public void guidTest() {
+        // TODO: test guid
     }
-    
+
+    /**
+     * Test the property 'response'
+     */
+    @Test
+    public void responseTest() {
+        // TODO: test response
+    }
+
+    /**
+     * Test the property 'subscriptionEventGuid'
+     */
+    @Test
+    public void subscriptionEventGuidTest() {
+        // TODO: test subscriptionEventGuid
+    }
+
+    /**
+     * Test the property 'subscriptionGuid'
+     */
+    @Test
+    public void subscriptionGuidTest() {
+        // TODO: test subscriptionGuid
+    }
+
+    /**
+     * Test the property 'state'
+     */
+    @Test
+    public void stateTest() {
+        // TODO: test state
+    }
+
+    /**
+     * Test the property 'nextAttemptAt'
+     */
+    @Test
+    public void nextAttemptAtTest() {
+        // TODO: test nextAttemptAt
+    }
+
+    /**
+     * Test the property 'attemptCount'
+     */
+    @Test
+    public void attemptCountTest() {
+        // TODO: test attemptCount
+    }
+
+    /**
+     * Test the property 'completedAt'
+     */
+    @Test
+    public void completedAtTest() {
+        // TODO: test completedAt
+    }
+
+    /**
+     * Test the property 'failedAt'
+     */
+    @Test
+    public void failedAtTest() {
+        // TODO: test failedAt
+    }
+
+    /**
+     * Test the property 'createdAt'
+     */
+    @Test
+    public void createdAtTest() {
+        // TODO: test createdAt
+    }
+
+    /**
+     * Test the property 'updatedAt'
+     */
+    @Test
+    public void updatedAtTest() {
+        // TODO: test updatedAt
+    }
+
 }

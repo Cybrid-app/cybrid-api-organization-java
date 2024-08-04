@@ -11,54 +11,89 @@
  */
 
 
-package app.cybrid.cybrid_api_organization.client.api;
+package app.cybrid.cybrid_api_organization.client.model;
 
-import app.cybrid.cybrid_api_organization.client.model.ErrorResponseOrganizationModel;
-import app.cybrid.cybrid_api_organization.client.model.OrganizationOrganizationModel;
-import app.cybrid.cybrid_api_organization.client.model.PatchOrganizationOrganizationModel;
-import org.junit.Test;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.time.OffsetDateTime;
+import org.junit.Assert;
 import org.junit.Ignore;
+import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
- * API tests for OrganizationsOrganizationApi
+ * Model tests for SubscriptionEventOrganizationModel
  */
-@Ignore
-public class OrganizationsOrganizationApiTest {
+public class SubscriptionEventOrganizationModelTest {
+    private final SubscriptionEventOrganizationModel model = new SubscriptionEventOrganizationModel();
 
-    private final OrganizationsOrganizationApi api = new OrganizationsOrganizationApi();
-
-    
     /**
-     * Get organization
-     *
-     * Retrieve an organization.  Required scope: **organizations:read**
+     * Model tests for SubscriptionEventOrganizationModel
      */
     @Test
-    public void getOrganizationTest()  {
-        String organizationGuid = null;
-        OrganizationOrganizationModel response = api.getOrganization(organizationGuid).block();
-
-        // TODO: test validations
+    public void testSubscriptionEventOrganizationModel() {
+        // TODO: test SubscriptionEventOrganizationModel
     }
-    
+
     /**
-     * Patch organization
-     *
-     * Update an organization.  Required scope: **organizations:write**
+     * Test the property 'guid'
      */
     @Test
-    public void updateOrganizationTest()  {
-        String organizationGuid = null;
-        PatchOrganizationOrganizationModel patchOrganizationOrganizationModel = null;
-        OrganizationOrganizationModel response = api.updateOrganization(organizationGuid, patchOrganizationOrganizationModel).block();
-
-        // TODO: test validations
+    public void guidTest() {
+        // TODO: test guid
     }
-    
+
+    /**
+     * Test the property 'eventType'
+     */
+    @Test
+    public void eventTypeTest() {
+        // TODO: test eventType
+    }
+
+    /**
+     * Test the property 'objectGuid'
+     */
+    @Test
+    public void objectGuidTest() {
+        // TODO: test objectGuid
+    }
+
+    /**
+     * Test the property 'environment'
+     */
+    @Test
+    public void environmentTest() {
+        // TODO: test environment
+    }
+
+    /**
+     * Test the property 'organizationGuid'
+     */
+    @Test
+    public void organizationGuidTest() {
+        // TODO: test organizationGuid
+    }
+
+    /**
+     * Test the property 'createdAt'
+     */
+    @Test
+    public void createdAtTest() {
+        // TODO: test createdAt
+    }
+
+    /**
+     * Test the property 'updatedAt'
+     */
+    @Test
+    public void updatedAtTest() {
+        // TODO: test updatedAt
+    }
+
 }

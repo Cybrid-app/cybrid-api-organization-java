@@ -85,19 +85,20 @@ info:
     \ counterparties:read customers:read accounts:read prices:read quotes:execute\
     \ quotes:read trades:execute trades:read transfers:read transfers:execute external_bank_accounts:read\
     \ external_wallets:read workflows:read deposit_addresses:read deposit_bank_accounts:read\
-    \ invoices:read subscriptions:read subscriptions:write subscriptions:execute identity_verifications:read'\n\
-    ```\n<font color=\"orange\">**⚠️ Note: The above curl will create a bearer token\
-    \ with full scope access. Delete scopes if you'd like to restrict access.**</font>\n\
-    \n## Authentication Scopes\n\nThe Cybrid platform supports the use of scopes to\
-    \ control the level of access a token is limited to. Scopes do not grant access\
-    \ to resources; instead, they provide limits, in support of the least privilege\
-    \ principal.\n\nThe following scopes are available on the platform and can be\
-    \ requested when generating either an Organization, Bank or Customer token. Generally\
-    \ speaking, the _Read_ scope is required to read and list resources, the _Write_\
-    \ scope is required to update a resource and the _Execute_ scope is required to\
-    \ create a resource.\n\n| Resource              | Read scope (Token Type)    \
-    \                                | Write scope (Token Type)                  \
-    \    | Execute scope (Token Type)                       |\n|-----------------------|------------------------------------------------------------|-----------------------------------------------|--------------------------------------------------|\n\
+    \ invoices:read subscriptions:read subscriptions:write subscriptions:execute subscription_events:read\
+    \ subscription_events:execute identity_verifications:read'\n```\n<font color=\"\
+    orange\">**⚠️ Note: The above curl will create a bearer token with full scope\
+    \ access. Delete scopes if you'd like to restrict access.**</font>\n\n## Authentication\
+    \ Scopes\n\nThe Cybrid platform supports the use of scopes to control the level\
+    \ of access a token is limited to. Scopes do not grant access to resources; instead,\
+    \ they provide limits, in support of the least privilege principal.\n\nThe following\
+    \ scopes are available on the platform and can be requested when generating either\
+    \ an Organization, Bank or Customer token. Generally speaking, the _Read_ scope\
+    \ is required to read and list resources, the _Write_ scope is required to update\
+    \ a resource and the _Execute_ scope is required to create a resource.\n\n| Resource\
+    \              | Read scope (Token Type)                                    |\
+    \ Write scope (Token Type)                      | Execute scope (Token Type) \
+    \                      |\n|-----------------------|------------------------------------------------------------|-----------------------------------------------|--------------------------------------------------|\n\
     | Account               | accounts:read (Organization, Bank, Customer)       \
     \        |                                               | accounts:execute (Bank,\
     \ Customer)                |\n| Bank                  | banks:read (Organization,\
@@ -215,7 +216,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://www.cybrid.xyz/tos
   title: Cybrid Organization API
-  version: v0.118.121
+  version: v0.118.124
 servers:
 - description: Sandbox environment is simulated money movement
   url: https://organization.sandbox.cybrid.app
@@ -406,6 +407,498 @@ paths:
       - Organizations
       x-content-type: application/json
       x-accepts: application/json
+  /api/subscription_deliveries/:
+    post:
+      description: "Creates a SubscriptionDelivery.\n\npost\n\nRequired scope: **subscription_events:execute"
+      operationId: createSubscriptionDelivery
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostSubscriptionDelivery'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionDelivery'
+          description: SubscriptionDelivery created
+        "401":
+          content:
+            application/json:
+              examples:
+                invalid_subject:
+                  value:
+                    status: 401
+                    error_message: "Invalid Subject type. Required: bank or customer"
+                    message_code: invalid_subject
+                invalid_signature:
+                  value:
+                    status: 401
+                    error_message: Signature verification raised
+                    message_code: authentication_failed
+                invalid_audience:
+                  value:
+                    status: 401
+                    error_message: Invalid audience
+                    message_code: authentication_failed
+                invalid_issuer:
+                  value:
+                    status: 401
+                    error_message: Invalid issuer
+                    message_code: authentication_failed
+                expired_signature:
+                  value:
+                    status: 401
+                    error_message: Signature has expired
+                    message_code: authentication_failed
+                malformed_auth_header:
+                  value:
+                    status: 401
+                    error_message: Authorization header is malformed.
+                    message_code: authentication_malformed
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: "Unauthorized - Authentication failed, "
+        "403":
+          content:
+            application/json:
+              examples:
+                invalid_scope:
+                  value:
+                    status: 403
+                    error_message: "Invalid scopes. Required: subscription_events:execute"
+                    message_code: invalid_scopes
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid scope
+      security:
+      - BearerAuth: []
+        oauth2:
+        - subscription_events:execute
+      summary: Create SubscriptionDelivery
+      tags:
+      - SubscriptionDeliveries
+      x-content-type: application/json
+      x-accepts: application/json
+  /api/subscription_deliveries/{subscription_delivery_guid}:
+    get:
+      description: "Retrieves a subscription delivery.\n\nRequired scope: **subscription_events:read**"
+      operationId: getSubscriptionDelivery
+      parameters:
+      - description: Identifier for the subscription delivery.
+        explode: false
+        in: path
+        name: subscription_delivery_guid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionDelivery'
+          description: Subscription delivery found
+        "401":
+          content:
+            application/json:
+              examples:
+                invalid_subject:
+                  value:
+                    status: 401
+                    error_message: "Invalid Subject type. Required: customer or bank\
+                      \ or internal"
+                    message_code: invalid_subject
+                invalid_signature:
+                  value:
+                    status: 401
+                    error_message: Signature verification raised
+                    message_code: authentication_failed
+                invalid_audience:
+                  value:
+                    status: 401
+                    error_message: Invalid audience
+                    message_code: authentication_failed
+                invalid_issuer:
+                  value:
+                    status: 401
+                    error_message: Invalid issuer
+                    message_code: authentication_failed
+                expired_signature:
+                  value:
+                    status: 401
+                    error_message: Signature has expired
+                    message_code: authentication_failed
+                malformed_auth_header:
+                  value:
+                    status: 401
+                    error_message: Authorization header is malformed.
+                    message_code: authentication_malformed
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: "Unauthorized - Authentication failed, "
+        "403":
+          content:
+            application/json:
+              examples:
+                invalid_scope:
+                  value:
+                    status: 403
+                    error_message: "Invalid scopes. Required: subscription_events:read"
+                    message_code: invalid_scopes
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid scope
+        "404":
+          content:
+            application/json:
+              examples:
+                not_found:
+                  value:
+                    status: 404
+                    error_message: Subscription delivery not found
+                    message_code: not_found
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Subscription delivery not found
+      security:
+      - BearerAuth: []
+        oauth2:
+        - subscription_events:read
+      summary: 'Get Subscription Delivery '
+      tags:
+      - SubscriptionDeliveries
+      x-accepts: application/json
+  /api/subscription_deliveries:
+    get:
+      description: "Retrieves a listing of subscription deliveries s.\n\nRequired\
+        \ scope: **subscription_events:read**"
+      operationId: listSubscriptionDeliveries
+      parameters:
+      - description: The page index to retrieve.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          $ref: '#/components/schemas/ListRequestPage'
+        style: form
+      - description: The number of entities per page to return.
+        explode: true
+        in: query
+        name: per_page
+        required: false
+        schema:
+          $ref: '#/components/schemas/ListRequestPerPage'
+        style: form
+      - description: Comma separated subscription_delivery_guids to list subscription
+          deliveries for.
+        explode: true
+        in: query
+        name: guid
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Comma separated subscription_event_guids to list subscription
+          deliveries for.
+        explode: true
+        in: query
+        name: subscription_event_guid
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Comma separated subscription_guids to list subscription deliveries
+          for.
+        explode: true
+        in: query
+        name: subscription_guid
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionDeliveryList'
+          description: Get list of subscription deliveries
+        "400":
+          content:
+            application/json:
+              examples:
+                invalid_value:
+                  value:
+                    status: 400
+                    error_message: Invalid value. comma separated guids must be at
+                      the most 4096 characters long
+                    message_code: invalid_value
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid requests
+        "401":
+          content:
+            application/json:
+              examples:
+                invalid_subject:
+                  value:
+                    status: 401
+                    error_message: "Invalid Subject type. Required: customer or bank\
+                      \ or internal"
+                    message_code: invalid_subject
+                invalid_signature:
+                  value:
+                    status: 401
+                    error_message: Signature verification raised
+                    message_code: authentication_failed
+                invalid_audience:
+                  value:
+                    status: 401
+                    error_message: Invalid audience
+                    message_code: authentication_failed
+                invalid_issuer:
+                  value:
+                    status: 401
+                    error_message: Invalid issuer
+                    message_code: authentication_failed
+                expired_signature:
+                  value:
+                    status: 401
+                    error_message: Signature has expired
+                    message_code: authentication_failed
+                malformed_auth_header:
+                  value:
+                    status: 401
+                    error_message: Authorization header is malformed.
+                    message_code: authentication_malformed
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: "Unauthorized - Authentication failed, "
+        "403":
+          content:
+            application/json:
+              examples:
+                invalid_scope:
+                  value:
+                    status: 403
+                    error_message: "Invalid scopes. Required: subscription_events:read"
+                    message_code: invalid_scopes
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid scope
+      security:
+      - BearerAuth: []
+        oauth2:
+        - subscription_events:read
+      summary: Get subscription deliveries list
+      tags:
+      - SubscriptionDeliveries
+      x-accepts: application/json
+  /api/subscription_events/{subscription_event_guid}:
+    get:
+      description: "Retrieves a Subscription Event.\n\nRequired scope: **subscription_events:read**"
+      operationId: getSubscriptionEvent
+      parameters:
+      - description: Identifier for the Subscription Event.
+        explode: false
+        in: path
+        name: subscription_event_guid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionEvent'
+          description: Subscription Event found
+        "401":
+          content:
+            application/json:
+              examples:
+                invalid_subject:
+                  value:
+                    status: 401
+                    error_message: "Invalid Subject type. Required: customer or bank\
+                      \ or internal"
+                    message_code: invalid_subject
+                invalid_signature:
+                  value:
+                    status: 401
+                    error_message: Signature verification raised
+                    message_code: authentication_failed
+                invalid_audience:
+                  value:
+                    status: 401
+                    error_message: Invalid audience
+                    message_code: authentication_failed
+                invalid_issuer:
+                  value:
+                    status: 401
+                    error_message: Invalid issuer
+                    message_code: authentication_failed
+                expired_signature:
+                  value:
+                    status: 401
+                    error_message: Signature has expired
+                    message_code: authentication_failed
+                malformed_auth_header:
+                  value:
+                    status: 401
+                    error_message: Authorization header is malformed.
+                    message_code: authentication_malformed
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: "Unauthorized - Authentication failed, "
+        "403":
+          content:
+            application/json:
+              examples:
+                invalid_scope:
+                  value:
+                    status: 403
+                    error_message: "Invalid scopes. Required: subscription_events:read"
+                    message_code: invalid_scopes
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid scope
+        "404":
+          content:
+            application/json:
+              examples:
+                not_found:
+                  value:
+                    status: 404
+                    error_message: Subscription Event not found
+                    message_code: not_found
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Subscription Event not found
+      security:
+      - BearerAuth: []
+        oauth2:
+        - subscription_events:read
+      summary: 'Get Subscription Event '
+      tags:
+      - SubscriptionEvents
+      x-accepts: application/json
+  /api/subscription_events:
+    get:
+      description: "Retrieves a listing of subscription events s.\n\nRequired scope:\
+        \ **subscription_events:read**"
+      operationId: listSubscriptionEvents
+      parameters:
+      - description: The page index to retrieve.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          $ref: '#/components/schemas/ListRequestPage'
+        style: form
+      - description: The number of entities per page to return.
+        explode: true
+        in: query
+        name: per_page
+        required: false
+        schema:
+          $ref: '#/components/schemas/ListRequestPerPage'
+        style: form
+      - description: Comma separated subscription_event_guids to list subscription
+          events for.
+        explode: true
+        in: query
+        name: guid
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionEventList'
+          description: Get list of subscription events
+        "400":
+          content:
+            application/json:
+              examples:
+                invalid_value:
+                  value:
+                    status: 400
+                    error_message: Invalid value. comma separated guids must be at
+                      the most 4096 characters long
+                    message_code: invalid_value
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid requests
+        "401":
+          content:
+            application/json:
+              examples:
+                invalid_subject:
+                  value:
+                    status: 401
+                    error_message: "Invalid Subject type. Required: customer or bank\
+                      \ or internal"
+                    message_code: invalid_subject
+                invalid_signature:
+                  value:
+                    status: 401
+                    error_message: Signature verification raised
+                    message_code: authentication_failed
+                invalid_audience:
+                  value:
+                    status: 401
+                    error_message: Invalid audience
+                    message_code: authentication_failed
+                invalid_issuer:
+                  value:
+                    status: 401
+                    error_message: Invalid issuer
+                    message_code: authentication_failed
+                expired_signature:
+                  value:
+                    status: 401
+                    error_message: Signature has expired
+                    message_code: authentication_failed
+                malformed_auth_header:
+                  value:
+                    status: 401
+                    error_message: Authorization header is malformed.
+                    message_code: authentication_malformed
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: "Unauthorized - Authentication failed, "
+        "403":
+          content:
+            application/json:
+              examples:
+                invalid_scope:
+                  value:
+                    status: 403
+                    error_message: "Invalid scopes. Required: subscription_events:read"
+                    message_code: invalid_scopes
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid scope
+      security:
+      - BearerAuth: []
+        oauth2:
+        - subscription_events:read
+      summary: Get subscription events list
+      tags:
+      - Subscription Events
+      x-accepts: application/json
   /api/subscriptions/:
     post:
       description: "Creates a Subscription.\n\n## Subscription creation\n\nSubscriptions\
@@ -587,6 +1080,14 @@ paths:
         schema:
           type: string
         style: simple
+      - description: Flag to include signing key in the response.
+        explode: true
+        in: query
+        name: include_signing_key
+        required: false
+        schema:
+          type: boolean
+        style: form
       responses:
         "200":
           content:
@@ -692,6 +1193,14 @@ paths:
         required: false
         schema:
           type: string
+        style: form
+      - description: Flag to include signing key in the response.
+        explode: true
+        in: query
+        name: include_signing_key
+        required: false
+        schema:
+          type: boolean
         style: form
       responses:
         "200":
@@ -826,16 +1335,24 @@ components:
       example:
         environment: environment
         failure_code: failure_code
+        signing_key: signing_key
         updated_at: 2000-01-23T04:56:07.000+00:00
         name: name
         guid: guid
         created_at: 2000-01-23T04:56:07.000+00:00
+        deliveries_failing_since: 2000-01-23T04:56:07.000+00:00
         state: state
+        organization_guid: organization_guid
         type: webhook
         url: url
       properties:
         guid:
           description: Auto-generated unique identifier for the subscription.
+          maxLength: 32
+          minLength: 32
+          type: string
+        organization_guid:
+          description: The organization guid for the subscription.
           maxLength: 32
           minLength: 32
           type: string
@@ -851,8 +1368,16 @@ components:
           type: string
         url:
           description: The url for the subscription.
-          maxLength: 128
+          maxLength: 1024
           minLength: 1
+          type: string
+        signing_key:
+          description: Subscription private signing key.
+          type: string
+        deliveries_failing_since:
+          description: ISO8601 datetime the deliveries started failing.
+          format: date-time
+          nullable: true
           type: string
         environment:
           description: The environment that the subscription is configured for; one
@@ -931,20 +1456,26 @@ components:
         objects:
         - environment: environment
           failure_code: failure_code
+          signing_key: signing_key
           updated_at: 2000-01-23T04:56:07.000+00:00
           name: name
           guid: guid
           created_at: 2000-01-23T04:56:07.000+00:00
+          deliveries_failing_since: 2000-01-23T04:56:07.000+00:00
           state: state
+          organization_guid: organization_guid
           type: webhook
           url: url
         - environment: environment
           failure_code: failure_code
+          signing_key: signing_key
           updated_at: 2000-01-23T04:56:07.000+00:00
           name: name
           guid: guid
           created_at: 2000-01-23T04:56:07.000+00:00
+          deliveries_failing_since: 2000-01-23T04:56:07.000+00:00
           state: state
+          organization_guid: organization_guid
           type: webhook
           url: url
         page: 0
@@ -964,6 +1495,223 @@ components:
         objects:
           items:
             $ref: '#/components/schemas/Subscription'
+          type: array
+      required:
+      - objects
+      - page
+      - per_page
+      - total
+      type: object
+    SubscriptionEvent:
+      example:
+        object_guid: object_guid
+        environment: environment
+        event_type: event_type
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        guid: guid
+        created_at: 2000-01-23T04:56:07.000+00:00
+        organization_guid: organization_guid
+      properties:
+        guid:
+          description: Auto-generated unique identifier for the subscription event.
+          type: string
+        event_type:
+          description: The type of the subscription event. One of transfer.created
+            or transfer.updated.
+          type: string
+        object_guid:
+          description: The object guid for which the event is received.
+          type: string
+        environment:
+          description: The environment that the subscription event is configured for;
+            one of sandbox or production.
+          type: string
+        organization_guid:
+          description: The organization guid of the subscription event.
+          type: string
+        created_at:
+          description: ISO8601 datetime the record was created at.
+          format: date-time
+          type: string
+        updated_at:
+          description: ISO8601 datetime the record was last updated at.
+          format: date-time
+          type: string
+      required:
+      - created_at
+      - event_type
+      - guid
+      - object_guid
+      - organization_guid
+      - sandbox
+      type: object
+    SubscriptionEventList:
+      example:
+        per_page: 0
+        total: 0
+        objects:
+        - object_guid: object_guid
+          environment: environment
+          event_type: event_type
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          guid: guid
+          created_at: 2000-01-23T04:56:07.000+00:00
+          organization_guid: organization_guid
+        - object_guid: object_guid
+          environment: environment
+          event_type: event_type
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          guid: guid
+          created_at: 2000-01-23T04:56:07.000+00:00
+          organization_guid: organization_guid
+        page: 0
+      properties:
+        total:
+          description: The total number of records available.
+          minimum: 0
+          type: integer
+        page:
+          description: The page index to retrieve.
+          minimum: 0
+          type: integer
+        per_page:
+          description: The number of entities per page to return.
+          minimum: 0
+          type: integer
+        objects:
+          items:
+            $ref: '#/components/schemas/SubscriptionEvent'
+          type: array
+      required:
+      - objects
+      - page
+      - per_page
+      - total
+      type: object
+    SubscriptionDelivery:
+      example:
+        attempt_count: 0
+        completed_at: 2000-01-23T04:56:07.000+00:00
+        next_attempt_at: 2000-01-23T04:56:07.000+00:00
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        response: response
+        guid: guid
+        created_at: 2000-01-23T04:56:07.000+00:00
+        subscription_guid: subscription_guid
+        state: storing
+        failed_at: 2000-01-23T04:56:07.000+00:00
+        subscription_event_guid: subscription_event_guid
+      properties:
+        guid:
+          description: Auto-generated unique identifier for the subscription delivery.
+          type: string
+        response:
+          description: The response of the subscription delivery.
+          nullable: true
+          type: string
+        subscription_event_guid:
+          description: The subscription event guid of the subscription delivery.
+          type: string
+        subscription_guid:
+          description: The subscription guid of the subscription delivery.
+          type: string
+        state:
+          description: The state of the subscription delivery.
+          enum:
+          - storing
+          - completed
+          - failing
+          - failed
+          type: string
+        next_attempt_at:
+          description: ISO8601 datetime the next attempt will be made.
+          format: date-time
+          nullable: true
+          type: string
+        attempt_count:
+          description: The number of attempts made to deliver the event.
+          type: integer
+        completed_at:
+          description: ISO8601 datetime the event was delivered.
+          format: date-time
+          nullable: true
+          type: string
+        failed_at:
+          description: ISO8601 datetime the event delivery was marked as failed.
+          format: date-time
+          nullable: true
+          type: string
+        created_at:
+          description: ISO8601 datetime the record was created at.
+          format: date-time
+          type: string
+        updated_at:
+          description: ISO8601 datetime the record was last updated at.
+          format: date-time
+          type: string
+      required:
+      - attempt_count
+      - guid
+      - state
+      - subscription_event_guid
+      - subscription_guid
+      type: object
+    PostSubscriptionDelivery:
+      properties:
+        subscription_event_guid:
+          description: The event guid .
+          type: string
+        subscription_guid:
+          description: The subscription guid.
+          type: string
+      required:
+      - subscription_event_guid
+      - subscription_guid
+      type: object
+    SubscriptionDeliveryList:
+      example:
+        per_page: 0
+        total: 0
+        objects:
+        - attempt_count: 0
+          completed_at: 2000-01-23T04:56:07.000+00:00
+          next_attempt_at: 2000-01-23T04:56:07.000+00:00
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          response: response
+          guid: guid
+          created_at: 2000-01-23T04:56:07.000+00:00
+          subscription_guid: subscription_guid
+          state: storing
+          failed_at: 2000-01-23T04:56:07.000+00:00
+          subscription_event_guid: subscription_event_guid
+        - attempt_count: 0
+          completed_at: 2000-01-23T04:56:07.000+00:00
+          next_attempt_at: 2000-01-23T04:56:07.000+00:00
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          response: response
+          guid: guid
+          created_at: 2000-01-23T04:56:07.000+00:00
+          subscription_guid: subscription_guid
+          state: storing
+          failed_at: 2000-01-23T04:56:07.000+00:00
+          subscription_event_guid: subscription_event_guid
+        page: 0
+      properties:
+        total:
+          description: The total number of records available.
+          minimum: 0
+          type: integer
+        page:
+          description: The page index to retrieve.
+          minimum: 0
+          type: integer
+        per_page:
+          description: The number of entities per page to return.
+          minimum: 0
+          type: integer
+        objects:
+          items:
+            $ref: '#/components/schemas/SubscriptionDelivery'
           type: array
       required:
       - objects
@@ -997,6 +1745,8 @@ components:
             subscriptions:write: subscriptions write
             subscriptions:read: subscriptions read
             subscriptions:execute: subscriptions execute
+            subscription_events:read: subscription_events read
+            subscription_events:execute: subscription_events execute
           tokenUrl: https://id.production.cybrid.app/oauth/token
       type: oauth2
     BearerAuth:

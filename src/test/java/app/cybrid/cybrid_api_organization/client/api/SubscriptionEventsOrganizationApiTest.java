@@ -14,8 +14,8 @@
 package app.cybrid.cybrid_api_organization.client.api;
 
 import app.cybrid.cybrid_api_organization.client.model.ErrorResponseOrganizationModel;
-import app.cybrid.cybrid_api_organization.client.model.OrganizationOrganizationModel;
-import app.cybrid.cybrid_api_organization.client.model.PatchOrganizationOrganizationModel;
+import app.cybrid.cybrid_api_organization.client.model.SubscriptionEventListOrganizationModel;
+import app.cybrid.cybrid_api_organization.client.model.SubscriptionEventOrganizationModel;
 import org.junit.Test;
 import org.junit.Ignore;
 
@@ -26,37 +26,38 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * API tests for OrganizationsOrganizationApi
+ * API tests for SubscriptionEventsOrganizationApi
  */
 @Ignore
-public class OrganizationsOrganizationApiTest {
+public class SubscriptionEventsOrganizationApiTest {
 
-    private final OrganizationsOrganizationApi api = new OrganizationsOrganizationApi();
+    private final SubscriptionEventsOrganizationApi api = new SubscriptionEventsOrganizationApi();
 
     
     /**
-     * Get organization
+     * Get Subscription Event 
      *
-     * Retrieve an organization.  Required scope: **organizations:read**
+     * Retrieves a Subscription Event.  Required scope: **subscription_events:read**
      */
     @Test
-    public void getOrganizationTest()  {
-        String organizationGuid = null;
-        OrganizationOrganizationModel response = api.getOrganization(organizationGuid).block();
+    public void getSubscriptionEventTest()  {
+        String subscriptionEventGuid = null;
+        SubscriptionEventOrganizationModel response = api.getSubscriptionEvent(subscriptionEventGuid).block();
 
         // TODO: test validations
     }
     
     /**
-     * Patch organization
+     * Get subscription events list
      *
-     * Update an organization.  Required scope: **organizations:write**
+     * Retrieves a listing of subscription events s.  Required scope: **subscription_events:read**
      */
     @Test
-    public void updateOrganizationTest()  {
-        String organizationGuid = null;
-        PatchOrganizationOrganizationModel patchOrganizationOrganizationModel = null;
-        OrganizationOrganizationModel response = api.updateOrganization(organizationGuid, patchOrganizationOrganizationModel).block();
+    public void listSubscriptionEventsTest()  {
+        java.math.BigInteger page = null;
+        java.math.BigInteger perPage = null;
+        String guid = null;
+        SubscriptionEventListOrganizationModel response = api.listSubscriptionEvents(page, perPage, guid).block();
 
         // TODO: test validations
     }

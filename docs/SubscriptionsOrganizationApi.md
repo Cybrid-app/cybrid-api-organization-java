@@ -167,7 +167,7 @@ null (empty response body)
 
 ## getSubscription
 
-> SubscriptionOrganizationModel getSubscription(subscriptionGuid)
+> SubscriptionOrganizationModel getSubscription(subscriptionGuid, includeSigningKey)
 
 Get Subscription 
 
@@ -199,8 +199,9 @@ public class Example {
 
         SubscriptionsOrganizationApi apiInstance = new SubscriptionsOrganizationApi(defaultClient);
         String subscriptionGuid = "subscriptionGuid_example"; // String | Identifier for the subscription.
+        Boolean includeSigningKey = true; // Boolean | Flag to include signing key in the response.
         try {
-            SubscriptionOrganizationModel result = apiInstance.getSubscription(subscriptionGuid);
+            SubscriptionOrganizationModel result = apiInstance.getSubscription(subscriptionGuid, includeSigningKey);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SubscriptionsOrganizationApi#getSubscription");
@@ -219,6 +220,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **subscriptionGuid** | **String**| Identifier for the subscription. | |
+| **includeSigningKey** | **Boolean**| Flag to include signing key in the response. | [optional] |
 
 ### Return type
 
@@ -245,7 +247,7 @@ public class Example {
 
 ## listSubscriptions
 
-> SubscriptionListOrganizationModel listSubscriptions(page, perPage, guid)
+> SubscriptionListOrganizationModel listSubscriptions(page, perPage, guid, includeSigningKey)
 
 Get subscriptions list
 
@@ -279,8 +281,9 @@ public class Example {
         java.math.BigInteger page = new java.math.BigInteger(); // java.math.BigInteger | The page index to retrieve.
         java.math.BigInteger perPage = new java.math.BigInteger(); // java.math.BigInteger | The number of entities per page to return.
         String guid = "guid_example"; // String | Comma separated subscription_guids to list subscriptions for.
+        Boolean includeSigningKey = true; // Boolean | Flag to include signing key in the response.
         try {
-            SubscriptionListOrganizationModel result = apiInstance.listSubscriptions(page, perPage, guid);
+            SubscriptionListOrganizationModel result = apiInstance.listSubscriptions(page, perPage, guid, includeSigningKey);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SubscriptionsOrganizationApi#listSubscriptions");
@@ -301,6 +304,7 @@ public class Example {
 | **page** | **java.math.BigInteger**| The page index to retrieve. | [optional] |
 | **perPage** | **java.math.BigInteger**| The number of entities per page to return. | [optional] |
 | **guid** | **String**| Comma separated subscription_guids to list subscriptions for. | [optional] |
+| **includeSigningKey** | **Boolean**| Flag to include signing key in the response. | [optional] |
 
 ### Return type
 

@@ -14,8 +14,9 @@
 package app.cybrid.cybrid_api_organization.client.api;
 
 import app.cybrid.cybrid_api_organization.client.model.ErrorResponseOrganizationModel;
-import app.cybrid.cybrid_api_organization.client.model.OrganizationOrganizationModel;
-import app.cybrid.cybrid_api_organization.client.model.PatchOrganizationOrganizationModel;
+import app.cybrid.cybrid_api_organization.client.model.PostSubscriptionDeliveryOrganizationModel;
+import app.cybrid.cybrid_api_organization.client.model.SubscriptionDeliveryListOrganizationModel;
+import app.cybrid.cybrid_api_organization.client.model.SubscriptionDeliveryOrganizationModel;
 import org.junit.Test;
 import org.junit.Ignore;
 
@@ -26,37 +27,53 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * API tests for OrganizationsOrganizationApi
+ * API tests for SubscriptionDeliveriesOrganizationApi
  */
 @Ignore
-public class OrganizationsOrganizationApiTest {
+public class SubscriptionDeliveriesOrganizationApiTest {
 
-    private final OrganizationsOrganizationApi api = new OrganizationsOrganizationApi();
+    private final SubscriptionDeliveriesOrganizationApi api = new SubscriptionDeliveriesOrganizationApi();
 
     
     /**
-     * Get organization
+     * Create SubscriptionDelivery
      *
-     * Retrieve an organization.  Required scope: **organizations:read**
+     * Creates a SubscriptionDelivery.  post  Required scope: **subscription_events:execute
      */
     @Test
-    public void getOrganizationTest()  {
-        String organizationGuid = null;
-        OrganizationOrganizationModel response = api.getOrganization(organizationGuid).block();
+    public void createSubscriptionDeliveryTest()  {
+        PostSubscriptionDeliveryOrganizationModel postSubscriptionDeliveryOrganizationModel = null;
+        SubscriptionDeliveryOrganizationModel response = api.createSubscriptionDelivery(postSubscriptionDeliveryOrganizationModel).block();
 
         // TODO: test validations
     }
     
     /**
-     * Patch organization
+     * Get Subscription Delivery 
      *
-     * Update an organization.  Required scope: **organizations:write**
+     * Retrieves a subscription delivery.  Required scope: **subscription_events:read**
      */
     @Test
-    public void updateOrganizationTest()  {
-        String organizationGuid = null;
-        PatchOrganizationOrganizationModel patchOrganizationOrganizationModel = null;
-        OrganizationOrganizationModel response = api.updateOrganization(organizationGuid, patchOrganizationOrganizationModel).block();
+    public void getSubscriptionDeliveryTest()  {
+        String subscriptionDeliveryGuid = null;
+        SubscriptionDeliveryOrganizationModel response = api.getSubscriptionDelivery(subscriptionDeliveryGuid).block();
+
+        // TODO: test validations
+    }
+    
+    /**
+     * Get subscription deliveries list
+     *
+     * Retrieves a listing of subscription deliveries s.  Required scope: **subscription_events:read**
+     */
+    @Test
+    public void listSubscriptionDeliveriesTest()  {
+        java.math.BigInteger page = null;
+        java.math.BigInteger perPage = null;
+        String guid = null;
+        String subscriptionEventGuid = null;
+        String subscriptionGuid = null;
+        SubscriptionDeliveryListOrganizationModel response = api.listSubscriptionDeliveries(page, perPage, guid, subscriptionEventGuid, subscriptionGuid).block();
 
         // TODO: test validations
     }

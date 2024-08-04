@@ -11,54 +11,131 @@
  */
 
 
-package app.cybrid.cybrid_api_organization.client.api;
+package app.cybrid.cybrid_api_organization.client.model;
 
-import app.cybrid.cybrid_api_organization.client.model.ErrorResponseOrganizationModel;
-import app.cybrid.cybrid_api_organization.client.model.OrganizationOrganizationModel;
-import app.cybrid.cybrid_api_organization.client.model.PatchOrganizationOrganizationModel;
-import org.junit.Test;
-import org.junit.Ignore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * API tests for OrganizationsOrganizationApi
+ * PostSubscriptionDeliveryOrganizationModel
  */
-@Ignore
-public class OrganizationsOrganizationApiTest {
+@JsonPropertyOrder({
+  PostSubscriptionDeliveryOrganizationModel.JSON_PROPERTY_SUBSCRIPTION_EVENT_GUID,
+  PostSubscriptionDeliveryOrganizationModel.JSON_PROPERTY_SUBSCRIPTION_GUID
+})
+@JsonTypeName("PostSubscriptionDelivery")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-08-04T11:43:01.811735Z[Etc/UTC]")
+public class PostSubscriptionDeliveryOrganizationModel {
+  public static final String JSON_PROPERTY_SUBSCRIPTION_EVENT_GUID = "subscription_event_guid";
+  private String subscriptionEventGuid;
 
-    private final OrganizationsOrganizationApi api = new OrganizationsOrganizationApi();
+  public static final String JSON_PROPERTY_SUBSCRIPTION_GUID = "subscription_guid";
+  private String subscriptionGuid;
 
+  public PostSubscriptionDeliveryOrganizationModel() { 
+  }
+
+  public PostSubscriptionDeliveryOrganizationModel subscriptionEventGuid(String subscriptionEventGuid) {
     
-    /**
-     * Get organization
-     *
-     * Retrieve an organization.  Required scope: **organizations:read**
-     */
-    @Test
-    public void getOrganizationTest()  {
-        String organizationGuid = null;
-        OrganizationOrganizationModel response = api.getOrganization(organizationGuid).block();
+    this.subscriptionEventGuid = subscriptionEventGuid;
+    return this;
+  }
 
-        // TODO: test validations
+   /**
+   * The event guid .
+   * @return subscriptionEventGuid
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "The event guid .")
+  @JsonProperty(JSON_PROPERTY_SUBSCRIPTION_EVENT_GUID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getSubscriptionEventGuid() {
+    return subscriptionEventGuid;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUBSCRIPTION_EVENT_GUID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setSubscriptionEventGuid(String subscriptionEventGuid) {
+    this.subscriptionEventGuid = subscriptionEventGuid;
+  }
+
+
+  public PostSubscriptionDeliveryOrganizationModel subscriptionGuid(String subscriptionGuid) {
+    
+    this.subscriptionGuid = subscriptionGuid;
+    return this;
+  }
+
+   /**
+   * The subscription guid.
+   * @return subscriptionGuid
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "The subscription guid.")
+  @JsonProperty(JSON_PROPERTY_SUBSCRIPTION_GUID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getSubscriptionGuid() {
+    return subscriptionGuid;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUBSCRIPTION_GUID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setSubscriptionGuid(String subscriptionGuid) {
+    this.subscriptionGuid = subscriptionGuid;
+  }
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-    
-    /**
-     * Patch organization
-     *
-     * Update an organization.  Required scope: **organizations:write**
-     */
-    @Test
-    public void updateOrganizationTest()  {
-        String organizationGuid = null;
-        PatchOrganizationOrganizationModel patchOrganizationOrganizationModel = null;
-        OrganizationOrganizationModel response = api.updateOrganization(organizationGuid, patchOrganizationOrganizationModel).block();
-
-        // TODO: test validations
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
-    
+    PostSubscriptionDeliveryOrganizationModel postSubscriptionDelivery = (PostSubscriptionDeliveryOrganizationModel) o;
+    return Objects.equals(this.subscriptionEventGuid, postSubscriptionDelivery.subscriptionEventGuid) &&
+        Objects.equals(this.subscriptionGuid, postSubscriptionDelivery.subscriptionGuid);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(subscriptionEventGuid, subscriptionGuid);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PostSubscriptionDeliveryOrganizationModel {\n");
+    sb.append("    subscriptionEventGuid: ").append(toIndentedString(subscriptionEventGuid)).append("\n");
+    sb.append("    subscriptionGuid: ").append(toIndentedString(subscriptionGuid)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
 }
+

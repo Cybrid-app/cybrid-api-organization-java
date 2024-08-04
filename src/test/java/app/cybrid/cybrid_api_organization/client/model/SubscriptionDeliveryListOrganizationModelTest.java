@@ -11,54 +11,67 @@
  */
 
 
-package app.cybrid.cybrid_api_organization.client.api;
+package app.cybrid.cybrid_api_organization.client.model;
 
-import app.cybrid.cybrid_api_organization.client.model.ErrorResponseOrganizationModel;
-import app.cybrid.cybrid_api_organization.client.model.OrganizationOrganizationModel;
-import app.cybrid.cybrid_api_organization.client.model.PatchOrganizationOrganizationModel;
-import org.junit.Test;
-import org.junit.Ignore;
-
+import app.cybrid.cybrid_api_organization.client.model.SubscriptionDeliveryOrganizationModel;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
+
 
 /**
- * API tests for OrganizationsOrganizationApi
+ * Model tests for SubscriptionDeliveryListOrganizationModel
  */
-@Ignore
-public class OrganizationsOrganizationApiTest {
+public class SubscriptionDeliveryListOrganizationModelTest {
+    private final SubscriptionDeliveryListOrganizationModel model = new SubscriptionDeliveryListOrganizationModel();
 
-    private final OrganizationsOrganizationApi api = new OrganizationsOrganizationApi();
-
-    
     /**
-     * Get organization
-     *
-     * Retrieve an organization.  Required scope: **organizations:read**
+     * Model tests for SubscriptionDeliveryListOrganizationModel
      */
     @Test
-    public void getOrganizationTest()  {
-        String organizationGuid = null;
-        OrganizationOrganizationModel response = api.getOrganization(organizationGuid).block();
-
-        // TODO: test validations
+    public void testSubscriptionDeliveryListOrganizationModel() {
+        // TODO: test SubscriptionDeliveryListOrganizationModel
     }
-    
+
     /**
-     * Patch organization
-     *
-     * Update an organization.  Required scope: **organizations:write**
+     * Test the property 'total'
      */
     @Test
-    public void updateOrganizationTest()  {
-        String organizationGuid = null;
-        PatchOrganizationOrganizationModel patchOrganizationOrganizationModel = null;
-        OrganizationOrganizationModel response = api.updateOrganization(organizationGuid, patchOrganizationOrganizationModel).block();
-
-        // TODO: test validations
+    public void totalTest() {
+        // TODO: test total
     }
-    
+
+    /**
+     * Test the property 'page'
+     */
+    @Test
+    public void pageTest() {
+        // TODO: test page
+    }
+
+    /**
+     * Test the property 'perPage'
+     */
+    @Test
+    public void perPageTest() {
+        // TODO: test perPage
+    }
+
+    /**
+     * Test the property 'objects'
+     */
+    @Test
+    public void objectsTest() {
+        // TODO: test objects
+    }
+
 }

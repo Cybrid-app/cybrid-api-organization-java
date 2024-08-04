@@ -11,54 +11,297 @@
  */
 
 
-package app.cybrid.cybrid_api_organization.client.api;
+package app.cybrid.cybrid_api_organization.client.model;
 
-import app.cybrid.cybrid_api_organization.client.model.ErrorResponseOrganizationModel;
-import app.cybrid.cybrid_api_organization.client.model.OrganizationOrganizationModel;
-import app.cybrid.cybrid_api_organization.client.model.PatchOrganizationOrganizationModel;
-import org.junit.Test;
-import org.junit.Ignore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.time.OffsetDateTime;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * API tests for OrganizationsOrganizationApi
+ * SubscriptionEventOrganizationModel
  */
-@Ignore
-public class OrganizationsOrganizationApiTest {
+@JsonPropertyOrder({
+  SubscriptionEventOrganizationModel.JSON_PROPERTY_GUID,
+  SubscriptionEventOrganizationModel.JSON_PROPERTY_EVENT_TYPE,
+  SubscriptionEventOrganizationModel.JSON_PROPERTY_OBJECT_GUID,
+  SubscriptionEventOrganizationModel.JSON_PROPERTY_ENVIRONMENT,
+  SubscriptionEventOrganizationModel.JSON_PROPERTY_ORGANIZATION_GUID,
+  SubscriptionEventOrganizationModel.JSON_PROPERTY_CREATED_AT,
+  SubscriptionEventOrganizationModel.JSON_PROPERTY_UPDATED_AT
+})
+@JsonTypeName("SubscriptionEvent")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-08-04T11:43:01.811735Z[Etc/UTC]")
+public class SubscriptionEventOrganizationModel {
+  public static final String JSON_PROPERTY_GUID = "guid";
+  private String guid;
 
-    private final OrganizationsOrganizationApi api = new OrganizationsOrganizationApi();
+  public static final String JSON_PROPERTY_EVENT_TYPE = "event_type";
+  private String eventType;
 
+  public static final String JSON_PROPERTY_OBJECT_GUID = "object_guid";
+  private String objectGuid;
+
+  public static final String JSON_PROPERTY_ENVIRONMENT = "environment";
+  private String environment;
+
+  public static final String JSON_PROPERTY_ORGANIZATION_GUID = "organization_guid";
+  private String organizationGuid;
+
+  public static final String JSON_PROPERTY_CREATED_AT = "created_at";
+  private OffsetDateTime createdAt;
+
+  public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
+  private OffsetDateTime updatedAt;
+
+  public SubscriptionEventOrganizationModel() { 
+  }
+
+  public SubscriptionEventOrganizationModel guid(String guid) {
     
-    /**
-     * Get organization
-     *
-     * Retrieve an organization.  Required scope: **organizations:read**
-     */
-    @Test
-    public void getOrganizationTest()  {
-        String organizationGuid = null;
-        OrganizationOrganizationModel response = api.getOrganization(organizationGuid).block();
+    this.guid = guid;
+    return this;
+  }
 
-        // TODO: test validations
+   /**
+   * Auto-generated unique identifier for the subscription event.
+   * @return guid
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "Auto-generated unique identifier for the subscription event.")
+  @JsonProperty(JSON_PROPERTY_GUID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getGuid() {
+    return guid;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GUID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setGuid(String guid) {
+    this.guid = guid;
+  }
+
+
+  public SubscriptionEventOrganizationModel eventType(String eventType) {
+    
+    this.eventType = eventType;
+    return this;
+  }
+
+   /**
+   * The type of the subscription event. One of transfer.created or transfer.updated.
+   * @return eventType
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "The type of the subscription event. One of transfer.created or transfer.updated.")
+  @JsonProperty(JSON_PROPERTY_EVENT_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getEventType() {
+    return eventType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EVENT_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setEventType(String eventType) {
+    this.eventType = eventType;
+  }
+
+
+  public SubscriptionEventOrganizationModel objectGuid(String objectGuid) {
+    
+    this.objectGuid = objectGuid;
+    return this;
+  }
+
+   /**
+   * The object guid for which the event is received.
+   * @return objectGuid
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "The object guid for which the event is received.")
+  @JsonProperty(JSON_PROPERTY_OBJECT_GUID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getObjectGuid() {
+    return objectGuid;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OBJECT_GUID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setObjectGuid(String objectGuid) {
+    this.objectGuid = objectGuid;
+  }
+
+
+  public SubscriptionEventOrganizationModel environment(String environment) {
+    
+    this.environment = environment;
+    return this;
+  }
+
+   /**
+   * The environment that the subscription event is configured for; one of sandbox or production.
+   * @return environment
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The environment that the subscription event is configured for; one of sandbox or production.")
+  @JsonProperty(JSON_PROPERTY_ENVIRONMENT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getEnvironment() {
+    return environment;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ENVIRONMENT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEnvironment(String environment) {
+    this.environment = environment;
+  }
+
+
+  public SubscriptionEventOrganizationModel organizationGuid(String organizationGuid) {
+    
+    this.organizationGuid = organizationGuid;
+    return this;
+  }
+
+   /**
+   * The organization guid of the subscription event.
+   * @return organizationGuid
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "The organization guid of the subscription event.")
+  @JsonProperty(JSON_PROPERTY_ORGANIZATION_GUID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getOrganizationGuid() {
+    return organizationGuid;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ORGANIZATION_GUID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setOrganizationGuid(String organizationGuid) {
+    this.organizationGuid = organizationGuid;
+  }
+
+
+  public SubscriptionEventOrganizationModel createdAt(OffsetDateTime createdAt) {
+    
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * ISO8601 datetime the record was created at.
+   * @return createdAt
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "ISO8601 datetime the record was created at.")
+  @JsonProperty(JSON_PROPERTY_CREATED_AT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public OffsetDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CREATED_AT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setCreatedAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+
+  public SubscriptionEventOrganizationModel updatedAt(OffsetDateTime updatedAt) {
+    
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * ISO8601 datetime the record was last updated at.
+   * @return updatedAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "ISO8601 datetime the record was last updated at.")
+  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUpdatedAt(OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-    
-    /**
-     * Patch organization
-     *
-     * Update an organization.  Required scope: **organizations:write**
-     */
-    @Test
-    public void updateOrganizationTest()  {
-        String organizationGuid = null;
-        PatchOrganizationOrganizationModel patchOrganizationOrganizationModel = null;
-        OrganizationOrganizationModel response = api.updateOrganization(organizationGuid, patchOrganizationOrganizationModel).block();
-
-        // TODO: test validations
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
-    
+    SubscriptionEventOrganizationModel subscriptionEvent = (SubscriptionEventOrganizationModel) o;
+    return Objects.equals(this.guid, subscriptionEvent.guid) &&
+        Objects.equals(this.eventType, subscriptionEvent.eventType) &&
+        Objects.equals(this.objectGuid, subscriptionEvent.objectGuid) &&
+        Objects.equals(this.environment, subscriptionEvent.environment) &&
+        Objects.equals(this.organizationGuid, subscriptionEvent.organizationGuid) &&
+        Objects.equals(this.createdAt, subscriptionEvent.createdAt) &&
+        Objects.equals(this.updatedAt, subscriptionEvent.updatedAt);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(guid, eventType, objectGuid, environment, organizationGuid, createdAt, updatedAt);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SubscriptionEventOrganizationModel {\n");
+    sb.append("    guid: ").append(toIndentedString(guid)).append("\n");
+    sb.append("    eventType: ").append(toIndentedString(eventType)).append("\n");
+    sb.append("    objectGuid: ").append(toIndentedString(objectGuid)).append("\n");
+    sb.append("    environment: ").append(toIndentedString(environment)).append("\n");
+    sb.append("    organizationGuid: ").append(toIndentedString(organizationGuid)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
 }
+

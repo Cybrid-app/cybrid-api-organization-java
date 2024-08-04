@@ -11,54 +11,468 @@
  */
 
 
-package app.cybrid.cybrid_api_organization.client.api;
+package app.cybrid.cybrid_api_organization.client.model;
 
-import app.cybrid.cybrid_api_organization.client.model.ErrorResponseOrganizationModel;
-import app.cybrid.cybrid_api_organization.client.model.OrganizationOrganizationModel;
-import app.cybrid.cybrid_api_organization.client.model.PatchOrganizationOrganizationModel;
-import org.junit.Test;
-import org.junit.Ignore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.time.OffsetDateTime;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * API tests for OrganizationsOrganizationApi
+ * SubscriptionDeliveryOrganizationModel
  */
-@Ignore
-public class OrganizationsOrganizationApiTest {
+@JsonPropertyOrder({
+  SubscriptionDeliveryOrganizationModel.JSON_PROPERTY_GUID,
+  SubscriptionDeliveryOrganizationModel.JSON_PROPERTY_RESPONSE,
+  SubscriptionDeliveryOrganizationModel.JSON_PROPERTY_SUBSCRIPTION_EVENT_GUID,
+  SubscriptionDeliveryOrganizationModel.JSON_PROPERTY_SUBSCRIPTION_GUID,
+  SubscriptionDeliveryOrganizationModel.JSON_PROPERTY_STATE,
+  SubscriptionDeliveryOrganizationModel.JSON_PROPERTY_NEXT_ATTEMPT_AT,
+  SubscriptionDeliveryOrganizationModel.JSON_PROPERTY_ATTEMPT_COUNT,
+  SubscriptionDeliveryOrganizationModel.JSON_PROPERTY_COMPLETED_AT,
+  SubscriptionDeliveryOrganizationModel.JSON_PROPERTY_FAILED_AT,
+  SubscriptionDeliveryOrganizationModel.JSON_PROPERTY_CREATED_AT,
+  SubscriptionDeliveryOrganizationModel.JSON_PROPERTY_UPDATED_AT
+})
+@JsonTypeName("SubscriptionDelivery")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-08-04T11:43:01.811735Z[Etc/UTC]")
+public class SubscriptionDeliveryOrganizationModel {
+  public static final String JSON_PROPERTY_GUID = "guid";
+  private String guid;
 
-    private final OrganizationsOrganizationApi api = new OrganizationsOrganizationApi();
+  public static final String JSON_PROPERTY_RESPONSE = "response";
+  private String response;
 
+  public static final String JSON_PROPERTY_SUBSCRIPTION_EVENT_GUID = "subscription_event_guid";
+  private String subscriptionEventGuid;
+
+  public static final String JSON_PROPERTY_SUBSCRIPTION_GUID = "subscription_guid";
+  private String subscriptionGuid;
+
+  /**
+   * The state of the subscription delivery.
+   */
+  public enum StateEnum {
+    STORING("storing"),
     
-    /**
-     * Get organization
-     *
-     * Retrieve an organization.  Required scope: **organizations:read**
-     */
-    @Test
-    public void getOrganizationTest()  {
-        String organizationGuid = null;
-        OrganizationOrganizationModel response = api.getOrganization(organizationGuid).block();
+    COMPLETED("completed"),
+    
+    FAILING("failing"),
+    
+    FAILED("failed");
 
-        // TODO: test validations
+    private String value;
+
+    StateEnum(String value) {
+      this.value = value;
     }
-    
-    /**
-     * Patch organization
-     *
-     * Update an organization.  Required scope: **organizations:write**
-     */
-    @Test
-    public void updateOrganizationTest()  {
-        String organizationGuid = null;
-        PatchOrganizationOrganizationModel patchOrganizationOrganizationModel = null;
-        OrganizationOrganizationModel response = api.updateOrganization(organizationGuid, patchOrganizationOrganizationModel).block();
 
-        // TODO: test validations
+    @JsonValue
+    public String getValue() {
+      return value;
     }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StateEnum fromValue(String value) {
+      for (StateEnum b : StateEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_STATE = "state";
+  private StateEnum state;
+
+  public static final String JSON_PROPERTY_NEXT_ATTEMPT_AT = "next_attempt_at";
+  private OffsetDateTime nextAttemptAt;
+
+  public static final String JSON_PROPERTY_ATTEMPT_COUNT = "attempt_count";
+  private java.math.BigInteger attemptCount;
+
+  public static final String JSON_PROPERTY_COMPLETED_AT = "completed_at";
+  private OffsetDateTime completedAt;
+
+  public static final String JSON_PROPERTY_FAILED_AT = "failed_at";
+  private OffsetDateTime failedAt;
+
+  public static final String JSON_PROPERTY_CREATED_AT = "created_at";
+  private OffsetDateTime createdAt;
+
+  public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
+  private OffsetDateTime updatedAt;
+
+  public SubscriptionDeliveryOrganizationModel() { 
+  }
+
+  public SubscriptionDeliveryOrganizationModel guid(String guid) {
     
+    this.guid = guid;
+    return this;
+  }
+
+   /**
+   * Auto-generated unique identifier for the subscription delivery.
+   * @return guid
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "Auto-generated unique identifier for the subscription delivery.")
+  @JsonProperty(JSON_PROPERTY_GUID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getGuid() {
+    return guid;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GUID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setGuid(String guid) {
+    this.guid = guid;
+  }
+
+
+  public SubscriptionDeliveryOrganizationModel response(String response) {
+    
+    this.response = response;
+    return this;
+  }
+
+   /**
+   * The response of the subscription delivery.
+   * @return response
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The response of the subscription delivery.")
+  @JsonProperty(JSON_PROPERTY_RESPONSE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getResponse() {
+    return response;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESPONSE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResponse(String response) {
+    this.response = response;
+  }
+
+
+  public SubscriptionDeliveryOrganizationModel subscriptionEventGuid(String subscriptionEventGuid) {
+    
+    this.subscriptionEventGuid = subscriptionEventGuid;
+    return this;
+  }
+
+   /**
+   * The subscription event guid of the subscription delivery.
+   * @return subscriptionEventGuid
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "The subscription event guid of the subscription delivery.")
+  @JsonProperty(JSON_PROPERTY_SUBSCRIPTION_EVENT_GUID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getSubscriptionEventGuid() {
+    return subscriptionEventGuid;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUBSCRIPTION_EVENT_GUID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setSubscriptionEventGuid(String subscriptionEventGuid) {
+    this.subscriptionEventGuid = subscriptionEventGuid;
+  }
+
+
+  public SubscriptionDeliveryOrganizationModel subscriptionGuid(String subscriptionGuid) {
+    
+    this.subscriptionGuid = subscriptionGuid;
+    return this;
+  }
+
+   /**
+   * The subscription guid of the subscription delivery.
+   * @return subscriptionGuid
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "The subscription guid of the subscription delivery.")
+  @JsonProperty(JSON_PROPERTY_SUBSCRIPTION_GUID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getSubscriptionGuid() {
+    return subscriptionGuid;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUBSCRIPTION_GUID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setSubscriptionGuid(String subscriptionGuid) {
+    this.subscriptionGuid = subscriptionGuid;
+  }
+
+
+  public SubscriptionDeliveryOrganizationModel state(StateEnum state) {
+    
+    this.state = state;
+    return this;
+  }
+
+   /**
+   * The state of the subscription delivery.
+   * @return state
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "The state of the subscription delivery.")
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public StateEnum getState() {
+    return state;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setState(StateEnum state) {
+    this.state = state;
+  }
+
+
+  public SubscriptionDeliveryOrganizationModel nextAttemptAt(OffsetDateTime nextAttemptAt) {
+    
+    this.nextAttemptAt = nextAttemptAt;
+    return this;
+  }
+
+   /**
+   * ISO8601 datetime the next attempt will be made.
+   * @return nextAttemptAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "ISO8601 datetime the next attempt will be made.")
+  @JsonProperty(JSON_PROPERTY_NEXT_ATTEMPT_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getNextAttemptAt() {
+    return nextAttemptAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NEXT_ATTEMPT_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNextAttemptAt(OffsetDateTime nextAttemptAt) {
+    this.nextAttemptAt = nextAttemptAt;
+  }
+
+
+  public SubscriptionDeliveryOrganizationModel attemptCount(java.math.BigInteger attemptCount) {
+    
+    this.attemptCount = attemptCount;
+    return this;
+  }
+
+   /**
+   * The number of attempts made to deliver the event.
+   * @return attemptCount
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "The number of attempts made to deliver the event.")
+  @JsonProperty(JSON_PROPERTY_ATTEMPT_COUNT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public java.math.BigInteger getAttemptCount() {
+    return attemptCount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ATTEMPT_COUNT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAttemptCount(java.math.BigInteger attemptCount) {
+    this.attemptCount = attemptCount;
+  }
+
+
+  public SubscriptionDeliveryOrganizationModel completedAt(OffsetDateTime completedAt) {
+    
+    this.completedAt = completedAt;
+    return this;
+  }
+
+   /**
+   * ISO8601 datetime the event was delivered.
+   * @return completedAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "ISO8601 datetime the event was delivered.")
+  @JsonProperty(JSON_PROPERTY_COMPLETED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getCompletedAt() {
+    return completedAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_COMPLETED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCompletedAt(OffsetDateTime completedAt) {
+    this.completedAt = completedAt;
+  }
+
+
+  public SubscriptionDeliveryOrganizationModel failedAt(OffsetDateTime failedAt) {
+    
+    this.failedAt = failedAt;
+    return this;
+  }
+
+   /**
+   * ISO8601 datetime the event delivery was marked as failed.
+   * @return failedAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "ISO8601 datetime the event delivery was marked as failed.")
+  @JsonProperty(JSON_PROPERTY_FAILED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getFailedAt() {
+    return failedAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FAILED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFailedAt(OffsetDateTime failedAt) {
+    this.failedAt = failedAt;
+  }
+
+
+  public SubscriptionDeliveryOrganizationModel createdAt(OffsetDateTime createdAt) {
+    
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * ISO8601 datetime the record was created at.
+   * @return createdAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "ISO8601 datetime the record was created at.")
+  @JsonProperty(JSON_PROPERTY_CREATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CREATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCreatedAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+
+  public SubscriptionDeliveryOrganizationModel updatedAt(OffsetDateTime updatedAt) {
+    
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * ISO8601 datetime the record was last updated at.
+   * @return updatedAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "ISO8601 datetime the record was last updated at.")
+  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUpdatedAt(OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SubscriptionDeliveryOrganizationModel subscriptionDelivery = (SubscriptionDeliveryOrganizationModel) o;
+    return Objects.equals(this.guid, subscriptionDelivery.guid) &&
+        Objects.equals(this.response, subscriptionDelivery.response) &&
+        Objects.equals(this.subscriptionEventGuid, subscriptionDelivery.subscriptionEventGuid) &&
+        Objects.equals(this.subscriptionGuid, subscriptionDelivery.subscriptionGuid) &&
+        Objects.equals(this.state, subscriptionDelivery.state) &&
+        Objects.equals(this.nextAttemptAt, subscriptionDelivery.nextAttemptAt) &&
+        Objects.equals(this.attemptCount, subscriptionDelivery.attemptCount) &&
+        Objects.equals(this.completedAt, subscriptionDelivery.completedAt) &&
+        Objects.equals(this.failedAt, subscriptionDelivery.failedAt) &&
+        Objects.equals(this.createdAt, subscriptionDelivery.createdAt) &&
+        Objects.equals(this.updatedAt, subscriptionDelivery.updatedAt);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(guid, response, subscriptionEventGuid, subscriptionGuid, state, nextAttemptAt, attemptCount, completedAt, failedAt, createdAt, updatedAt);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SubscriptionDeliveryOrganizationModel {\n");
+    sb.append("    guid: ").append(toIndentedString(guid)).append("\n");
+    sb.append("    response: ").append(toIndentedString(response)).append("\n");
+    sb.append("    subscriptionEventGuid: ").append(toIndentedString(subscriptionEventGuid)).append("\n");
+    sb.append("    subscriptionGuid: ").append(toIndentedString(subscriptionGuid)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    nextAttemptAt: ").append(toIndentedString(nextAttemptAt)).append("\n");
+    sb.append("    attemptCount: ").append(toIndentedString(attemptCount)).append("\n");
+    sb.append("    completedAt: ").append(toIndentedString(completedAt)).append("\n");
+    sb.append("    failedAt: ").append(toIndentedString(failedAt)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
 }
+
