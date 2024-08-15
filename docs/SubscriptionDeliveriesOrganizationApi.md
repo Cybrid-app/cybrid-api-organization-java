@@ -16,7 +16,7 @@ All URIs are relative to *https://organization.sandbox.cybrid.app*
 
 Create SubscriptionDelivery
 
-Creates a SubscriptionDelivery.  post  Required scope: **subscription_events:execute
+Creates a SubscriptionDelivery.  ## Subscription Delivery  Create a SubscriptionDelivery to retry the delivery of a SubscriptionEvent to a Subscription.  ## State  | State | Description | |-------|-------------| | storing | The Platform is storing the SubscriptionDelivery details in our private store | | completed | The Platform has successfully delivered the SubscriptionEvent to specified Subscription | | failing | The Platform is failing to deliver the SubscriptionDelivery,  a new attempt will be made (see &#x60;next_attempt_at&#x60;) | | failed | The Platform has failed to deliver the SubscriptionDelivery, no more attempts will be made |    Required scope: **subscription_events:execute
 
 ### Example
 

@@ -216,7 +216,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://www.cybrid.xyz/tos
   title: Cybrid Organization API
-  version: v0.119.25
+  version: v0.119.26
 servers:
 - description: Sandbox environment is simulated money movement
   url: https://organization.sandbox.cybrid.app
@@ -409,7 +409,16 @@ paths:
       x-accepts: application/json
   /api/subscription_deliveries/:
     post:
-      description: "Creates a SubscriptionDelivery.\n\npost\n\nRequired scope: **subscription_events:execute"
+      description: "Creates a SubscriptionDelivery.\n\n## Subscription Delivery\n\n\
+        Create a SubscriptionDelivery to retry the delivery of a SubscriptionEvent\
+        \ to a Subscription.\n\n## State\n\n| State | Description |\n|-------|-------------|\n\
+        | storing | The Platform is storing the SubscriptionDelivery details in our\
+        \ private store |\n| completed | The Platform has successfully delivered the\
+        \ SubscriptionEvent to specified Subscription |\n| failing | The Platform\
+        \ is failing to deliver the SubscriptionDelivery,  a new attempt will be made\
+        \ (see `next_attempt_at`) |\n| failed | The Platform has failed to deliver\
+        \ the SubscriptionDelivery, no more attempts will be made |\n\n\n\nRequired\
+        \ scope: **subscription_events:execute"
       operationId: createSubscriptionDelivery
       parameters: []
       requestBody:
@@ -897,7 +906,7 @@ paths:
         - subscription_events:read
       summary: Get subscription events list
       tags:
-      - Subscription Events
+      - SubscriptionEvents
       x-accepts: application/json
   /api/subscriptions/:
     post:
@@ -906,9 +915,7 @@ paths:
         \ |\n|-------|-------------|\n| storing | The Platform is storing the subscription\
         \ details in our private store |\n| completed | The Platform has created the\
         \ subscription |\n| failed | The Platform was not able to successfully create\
-        \ the subscription |\n| deleting | The Platform is deleting the subscription\
-        \ |\n| deleted | The Platform has deleted the subscription|\n\n\n\nRequired\
-        \ scope: **subscriptions:execute"
+        \ the subscription |\n\n\n\nRequired scope: **subscriptions:execute"
       operationId: createSubscription
       parameters: []
       requestBody:
