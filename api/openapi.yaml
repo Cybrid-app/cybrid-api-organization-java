@@ -216,7 +216,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://www.cybrid.xyz/tos
   title: Cybrid Organization API
-  version: v0.119.35
+  version: v0.119.36
 servers:
 - description: Sandbox environment is simulated money movement
   url: https://organization.sandbox.cybrid.app
@@ -1523,8 +1523,12 @@ components:
           description: Auto-generated unique identifier for the subscription event.
           type: string
         event_type:
-          description: The type of the subscription event. One of transfer.created
-            or transfer.updated.
+          description: "The type of the subscription event. One of trade.storing,\
+            \ trade.pending, trade.cancelled, trade.completed, trade.settling, trade.failed,\
+            \ transfer.storing, transfer.pending, transfer.reviewing, transfer.completed,\
+            \ transfer.failed, identity_verification.storing, identity_verification.pending,\
+            \ identity_verification.reviewing, identity_verification.waiting, identity_verification.expired,\
+            \ or identity_verification.completed."
           type: string
         object_guid:
           description: The object guid for which the event is received.
