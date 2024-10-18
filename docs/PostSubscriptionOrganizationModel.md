@@ -2,15 +2,25 @@
 
 # PostSubscriptionOrganizationModel
 
+Request body for subscription creation.
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
+|**environment** | [**EnvironmentEnum**](#EnvironmentEnum) | The environment that the subscription is configured for. |  |
+|**type** | [**TypeEnum**](#TypeEnum) | Type of the subscription. |  |
 |**name** | **String** | Name provided for the subscription. |  |
-|**type** | [**TypeEnum**](#TypeEnum) | The type of subscription. |  |
-|**url** | **String** | The url for the subscription. |  |
-|**environment** | **String** | The environment that the subscription is configured for; one of sandbox or production. |  |
+|**url** | **String** | URL provided for the subscription. |  |
+
+
+
+## Enum: EnvironmentEnum
+
+| Name | Value |
+|---- | -----|
+| SANDBOX | &quot;sandbox&quot; |
+| PRODUCTION | &quot;production&quot; |
 
 
 

@@ -2,6 +2,7 @@
 
 # PostSubscriptionDeliveryOrganizationModel
 
+Request body for subscription delivery creation.
 
 ## Properties
 

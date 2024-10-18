@@ -211,7 +211,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://www.cybrid.xyz/tos
   title: Cybrid Organization API
-  version: v0.121.18
+  version: v0.121.20
 servers:
 - description: Sandbox environment is simulated money movement
   url: https://organization.sandbox.cybrid.app
@@ -1325,13 +1325,14 @@ components:
       - name
       type: object
     PatchOrganization:
+      description: Request body for organization modification.
       properties:
         name:
           description: Name for the organization.
           maxLength: 128
+          minLength: 1
+          nullable: true
           type: string
-      required:
-      - name
       type: object
     Subscription:
       example:
@@ -1425,25 +1426,28 @@ components:
       - production
       type: string
     PostSubscription:
+      description: Request body for subscription creation.
       properties:
+        environment:
+          description: The environment that the subscription is configured for.
+          enum:
+          - sandbox
+          - production
+          type: string
+        type:
+          description: Type of the subscription.
+          enum:
+          - webhook
+          type: string
         name:
           description: Name provided for the subscription.
           maxLength: 128
           minLength: 1
           type: string
-        type:
-          description: The type of subscription.
-          enum:
-          - webhook
-          type: string
         url:
-          description: The url for the subscription.
-          maxLength: 128
+          description: URL provided for the subscription.
+          maxLength: 1024
           minLength: 1
-          type: string
-        environment:
-          description: The environment that the subscription is configured for; one
-            of sandbox or production.
           type: string
       required:
       - environment
@@ -1663,12 +1667,17 @@ components:
       - subscription_guid
       type: object
     PostSubscriptionDelivery:
+      description: Request body for subscription delivery creation.
       properties:
         subscription_event_guid:
           description: The event guid .
+          maxLength: 32
+          minLength: 32
           type: string
         subscription_guid:
           description: The subscription guid.
+          maxLength: 32
+          minLength: 32
           type: string
       required:
       - subscription_event_guid
