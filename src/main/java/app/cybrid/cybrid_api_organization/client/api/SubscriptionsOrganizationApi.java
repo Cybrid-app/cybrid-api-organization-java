@@ -28,7 +28,7 @@ import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.Flux;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-30T17:15:59.827703Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-31T22:30:22.556752Z[Etc/UTC]")
 public class SubscriptionsOrganizationApi {
     private ApiClient apiClient;
 
@@ -173,11 +173,10 @@ public class SubscriptionsOrganizationApi {
      * <p><b>403</b> - Invalid scope
      * <p><b>404</b> - Subscription not found
      * @param subscriptionGuid Identifier for the subscription.
-     * @param includeSigningKey Flag to include signing key in the response.
      * @return SubscriptionOrganizationModel
      * @throws WebClientResponseException if an error occurs while attempting to invoke the API
      */
-    private ResponseSpec getSubscriptionRequestCreation(String subscriptionGuid, Boolean includeSigningKey) throws WebClientResponseException {
+    private ResponseSpec getSubscriptionRequestCreation(String subscriptionGuid) throws WebClientResponseException {
         Object postBody = null;
         // verify the required parameter 'subscriptionGuid' is set
         if (subscriptionGuid == null) {
@@ -192,8 +191,6 @@ public class SubscriptionsOrganizationApi {
         final HttpHeaders headerParams = new HttpHeaders();
         final MultiValueMap<String, String> cookieParams = new LinkedMultiValueMap<String, String>();
         final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "include_signing_key", includeSigningKey));
 
         final String[] localVarAccepts = { 
             "application/json"
@@ -216,18 +213,17 @@ public class SubscriptionsOrganizationApi {
      * <p><b>403</b> - Invalid scope
      * <p><b>404</b> - Subscription not found
      * @param subscriptionGuid Identifier for the subscription.
-     * @param includeSigningKey Flag to include signing key in the response.
      * @return SubscriptionOrganizationModel
      * @throws WebClientResponseException if an error occurs while attempting to invoke the API
      */
-    public Mono<SubscriptionOrganizationModel> getSubscription(String subscriptionGuid, Boolean includeSigningKey) throws WebClientResponseException {
+    public Mono<SubscriptionOrganizationModel> getSubscription(String subscriptionGuid) throws WebClientResponseException {
         ParameterizedTypeReference<SubscriptionOrganizationModel> localVarReturnType = new ParameterizedTypeReference<SubscriptionOrganizationModel>() {};
-        return getSubscriptionRequestCreation(subscriptionGuid, includeSigningKey).bodyToMono(localVarReturnType);
+        return getSubscriptionRequestCreation(subscriptionGuid).bodyToMono(localVarReturnType);
     }
 
-    public Mono<ResponseEntity<SubscriptionOrganizationModel>> getSubscriptionWithHttpInfo(String subscriptionGuid, Boolean includeSigningKey) throws WebClientResponseException {
+    public Mono<ResponseEntity<SubscriptionOrganizationModel>> getSubscriptionWithHttpInfo(String subscriptionGuid) throws WebClientResponseException {
         ParameterizedTypeReference<SubscriptionOrganizationModel> localVarReturnType = new ParameterizedTypeReference<SubscriptionOrganizationModel>() {};
-        return getSubscriptionRequestCreation(subscriptionGuid, includeSigningKey).toEntity(localVarReturnType);
+        return getSubscriptionRequestCreation(subscriptionGuid).toEntity(localVarReturnType);
     }
     /**
      * Get subscriptions list
@@ -239,11 +235,12 @@ public class SubscriptionsOrganizationApi {
      * @param page The page index to retrieve.
      * @param perPage The number of entities per page to return.
      * @param guid Comma separated subscription_guids to list subscriptions for.
-     * @param includeSigningKey Flag to include signing key in the response.
+     * @param environment Environment to list subscriptions for.
+     * @param state State to list subscriptions for.
      * @return SubscriptionListOrganizationModel
      * @throws WebClientResponseException if an error occurs while attempting to invoke the API
      */
-    private ResponseSpec listSubscriptionsRequestCreation(java.math.BigInteger page, java.math.BigInteger perPage, String guid, Boolean includeSigningKey) throws WebClientResponseException {
+    private ResponseSpec listSubscriptionsRequestCreation(java.math.BigInteger page, java.math.BigInteger perPage, String guid, String environment, String state) throws WebClientResponseException {
         Object postBody = null;
         // create path and map variables
         final Map<String, Object> pathParams = new HashMap<String, Object>();
@@ -256,7 +253,8 @@ public class SubscriptionsOrganizationApi {
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "page", page));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "per_page", perPage));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "guid", guid));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "include_signing_key", includeSigningKey));
+        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "environment", environment));
+        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "state", state));
 
         final String[] localVarAccepts = { 
             "application/json"
@@ -281,17 +279,18 @@ public class SubscriptionsOrganizationApi {
      * @param page The page index to retrieve.
      * @param perPage The number of entities per page to return.
      * @param guid Comma separated subscription_guids to list subscriptions for.
-     * @param includeSigningKey Flag to include signing key in the response.
+     * @param environment Environment to list subscriptions for.
+     * @param state State to list subscriptions for.
      * @return SubscriptionListOrganizationModel
      * @throws WebClientResponseException if an error occurs while attempting to invoke the API
      */
-    public Mono<SubscriptionListOrganizationModel> listSubscriptions(java.math.BigInteger page, java.math.BigInteger perPage, String guid, Boolean includeSigningKey) throws WebClientResponseException {
+    public Mono<SubscriptionListOrganizationModel> listSubscriptions(java.math.BigInteger page, java.math.BigInteger perPage, String guid, String environment, String state) throws WebClientResponseException {
         ParameterizedTypeReference<SubscriptionListOrganizationModel> localVarReturnType = new ParameterizedTypeReference<SubscriptionListOrganizationModel>() {};
-        return listSubscriptionsRequestCreation(page, perPage, guid, includeSigningKey).bodyToMono(localVarReturnType);
+        return listSubscriptionsRequestCreation(page, perPage, guid, environment, state).bodyToMono(localVarReturnType);
     }
 
-    public Mono<ResponseEntity<SubscriptionListOrganizationModel>> listSubscriptionsWithHttpInfo(java.math.BigInteger page, java.math.BigInteger perPage, String guid, Boolean includeSigningKey) throws WebClientResponseException {
+    public Mono<ResponseEntity<SubscriptionListOrganizationModel>> listSubscriptionsWithHttpInfo(java.math.BigInteger page, java.math.BigInteger perPage, String guid, String environment, String state) throws WebClientResponseException {
         ParameterizedTypeReference<SubscriptionListOrganizationModel> localVarReturnType = new ParameterizedTypeReference<SubscriptionListOrganizationModel>() {};
-        return listSubscriptionsRequestCreation(page, perPage, guid, includeSigningKey).toEntity(localVarReturnType);
+        return listSubscriptionsRequestCreation(page, perPage, guid, environment, state).toEntity(localVarReturnType);
     }
 }

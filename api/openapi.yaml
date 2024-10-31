@@ -211,7 +211,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://www.cybrid.xyz/tos
   title: Cybrid Organization API
-  version: v0.122.4
+  version: v0.122.16
 servers:
 - description: Sandbox environment is simulated money movement
   url: https://organization.sandbox.cybrid.app
@@ -1082,14 +1082,6 @@ paths:
         schema:
           type: string
         style: simple
-      - description: Flag to include signing key in the response.
-        explode: true
-        in: query
-        name: include_signing_key
-        required: false
-        schema:
-          type: boolean
-        style: form
       responses:
         "200":
           content:
@@ -1196,13 +1188,21 @@ paths:
         schema:
           type: string
         style: form
-      - description: Flag to include signing key in the response.
+      - description: Environment to list subscriptions for.
         explode: true
         in: query
-        name: include_signing_key
+        name: environment
         required: false
         schema:
-          type: boolean
+          type: string
+        style: form
+      - description: State to list subscriptions for.
+        explode: true
+        in: query
+        name: state
+        required: false
+        schema:
+          type: string
         style: form
       responses:
         "200":
