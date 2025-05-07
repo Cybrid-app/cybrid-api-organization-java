@@ -2,9 +2,9 @@
 
 Cybrid Organization API
 
-- API version: v0.123.457
+- API version: v0.123.458
 
-- Build date: 2025-05-06T19:21:19.053005Z[Etc/UTC]
+- Build date: 2025-05-07T13:01:05.487168Z[Etc/UTC]
 
 # Cybrid API documentation
 
@@ -187,7 +187,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>app.cybrid</groupId>
   <artifactId>cybrid-api-organization-java</artifactId>
-  <version>v0.123.457</version>
+  <version>v0.123.458</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -203,7 +203,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "app.cybrid:cybrid-api-organization-java:v0.123.457"
+     implementation "app.cybrid:cybrid-api-organization-java:v0.123.458"
   }
 ```
 
@@ -217,7 +217,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/cybrid-api-organization-java-v0.123.457.jar`
+- `target/cybrid-api-organization-java-v0.123.458.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
